@@ -1,0 +1,32 @@
+{
+  "name": "brackette-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-boom": "^2.0.0",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "socket.io": "^2.2.0",
+    "thinky": "^2.3.9",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "cross-env NODE_ENV=\"development\" ts-node ./src/server.ts",
+    "start": "nodemon ./dist/server.js",
+    "prod": "npm run build && npm run start"
+  },
+  "author": "",
+  "license": "ISC"
+}

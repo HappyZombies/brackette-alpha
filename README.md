@@ -1,0 +1,3 @@
+## Brackette Alpha
+
+Welcome to Brackette. Hopefully I actually finish this project this time ...
