@@ -1,8 +1,8 @@
 import { Router } from "express";
-import BracketteRoutes from "../BracketteRoutes";
-import SomeRoutesControllers from "../../controllers/someRoutes";
 
-class SomeRoutes implements BracketteRoutes {
+import SomeRoutesControllers from "../../controllers/someRoutes";
+import IBracketteRoutes from "../IBracketteRoutes";
+class SomeRoutes implements IBracketteRoutes {
   routes: Router = Router();
   private controller: SomeRoutesControllers = new SomeRoutesControllers();
   constructor() {

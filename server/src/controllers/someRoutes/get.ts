@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { Controller } from "../RestController";
+import { IController } from "../RestController";
 
 const dummyUser = [{ id: "123", name: "jacob" }, { id: "1233", name: "daniel" }];
 
-class SomeRouterGets implements Controller {
+class SomeRouterGets implements IController {
   getAll(req: Request, res: Response): Response {
     return res.json(dummyUser);
   }

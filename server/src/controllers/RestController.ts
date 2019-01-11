@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
 
-export interface Controller {}
+export interface IController { }
 
-export interface RestController {
-  create: Controller;
-  get: Controller;
-  update: Controller;
-  delete: Controller;
+export interface IRestController {
+  create: IController;
+  get: IController;
+  update: IController;
+  delete: IController;
 }

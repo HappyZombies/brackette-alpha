@@ -1,57 +1,59 @@
-export interface Config {
-  PORT: string;
+export interface IConfig {
   DB_HOST: string;
+  DB_NAME: string;
+  DB_PASSWORD: string;
   DB_PORT: string;
   DB_USER: string;
-  DB_PASSWORD: string;
-  DB_NAME: string;
-  LOG_LEVEL: string;
   JWT_SECRET: string;
+  LOG_LEVEL: string;
+  PORT: string;
 }
 
-interface Configuration {
-  development: Config;
-  testing: Config;
-  production: Config;
+interface IConfiguration {
+  development: IConfig;
+  testing: IConfig;
+  production: IConfig;
 }
 
-class AppConfig implements Configuration {
-  development: Config = {
-    PORT: "5443",
+class AppConfig implements IConfiguration {
+  public development: IConfig = {
     DB_HOST: "localhost",
+    DB_NAME: "brackette",
+    DB_PASSWORD: "password",
     DB_PORT: "28015",
     DB_USER: "root",
-    DB_PASSWORD: "password",
-    DB_NAME: "brackette",
+    JWT_SECRET: "butts",
     LOG_LEVEL: "debug",
-    JWT_SECRET: "butts"
+    PORT: "5443"
   };
-  testing: Config = {
-    PORT: "5443",
+  public testing: IConfig = {
     DB_HOST: "localhost",
+    DB_NAME: "brackette",
+    DB_PASSWORD: "password",
     DB_PORT: "28015",
     DB_USER: "root",
-    DB_PASSWORD: "password",
-    DB_NAME: "brackette",
+    JWT_SECRET: "butts",
     LOG_LEVEL: "debug",
-    JWT_SECRET: "somethingelse"
+    PORT: "5443"
   };
-  production: Config = {
-    PORT: "5443",
+  public production: IConfig = {
     DB_HOST: "localhost",
+    DB_NAME: "brackette",
+    DB_PASSWORD: "password",
     DB_PORT: "28015",
     DB_USER: "root",
-    DB_PASSWORD: "password",
-    DB_NAME: "brackette",
+    JWT_SECRET: "butts",
     LOG_LEVEL: "debug",
-    JWT_SECRET: "prod"
+    PORT: "5443"
   };
 }
 
-if (!process.env.NODE_ENV) throw new Error("Please specify a NODE_ENV");
+if (!process.env.NODE_ENV) { throw new Error("Please specify a NODE_ENV"); }
 
-const CONFIG: Config = new AppConfig()[process.env.NODE_ENV];
+const CONFIG: IConfig = new AppConfig()[process.env.NODE_ENV];
 
-if (!CONFIG) throw new Error("Please specify a valid NODE_ENV");
+if (!CONFIG) {
+  throw new Error("Please specify a valid NODE_ENV");
+}
 
 export default CONFIG;

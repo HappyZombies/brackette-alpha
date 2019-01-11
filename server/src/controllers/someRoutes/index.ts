@@ -1,11 +1,11 @@
-import { RestController, Controller } from "../RestController";
+import { IRestController, IController } from "../RestController";
 import SomeRouterGets from "./get";
 
-class SomeRoutesControllers implements RestController {
-  create: Controller = null;
+class SomeRoutesControllers implements IRestController {
+  create: IController = null;
   get: SomeRouterGets = new SomeRouterGets();
-  update: Controller = null;
-  delete: Controller = null;
+  update: IController = null;
+  delete: IController = null;
 }
 
 export default SomeRoutesControllers;

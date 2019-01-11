@@ -1,5 +1,5 @@
-import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as express from "express";
 import * as boom from "express-boom";
 import * as morgan from "morgan";
 

@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-interface BracketteRoutes {
+interface IBracketteRoutes {
   routes: Router;
   _defineRoutes(): void;
 }
 
-export default BracketteRoutes;
+export default IBracketteRoutes;
