@@ -1,4 +1,6 @@
+
 export interface IConfig {
+  CLIENT: string;
   DB_HOST: string;
   DB_NAME: string;
   DB_PASSWORD: string;
@@ -6,10 +8,15 @@ export interface IConfig {
   DB_USER: string;
   JWT_SECRET: string;
   LOG_LEVEL: string;
-  PORT: string;
+  PORT: string | number;
+}
+export interface IThinkyConfig {
+  db: string,
+  port: number | string,
+  host: string
 }
 
-interface IConfiguration {
+export interface IConfiguration {
   development: IConfig;
   testing: IConfig;
   production: IConfig;
@@ -17,6 +24,7 @@ interface IConfiguration {
 
 class AppConfig implements IConfiguration {
   public development: IConfig = {
+    CLIENT: "mysql2",
     DB_HOST: "localhost",
     DB_NAME: "brackette",
     DB_PASSWORD: "password",
@@ -27,6 +35,7 @@ class AppConfig implements IConfiguration {
     PORT: "5443"
   };
   public testing: IConfig = {
+    CLIENT: "mysql2",
     DB_HOST: "localhost",
     DB_NAME: "brackette",
     DB_PASSWORD: "password",
@@ -37,6 +46,7 @@ class AppConfig implements IConfiguration {
     PORT: "5443"
   };
   public production: IConfig = {
+    CLIENT: "mysql2",
     DB_HOST: "localhost",
     DB_NAME: "brackette",
     DB_PASSWORD: "password",
@@ -55,5 +65,6 @@ const CONFIG: IConfig = new AppConfig()[process.env.NODE_ENV];
 if (!CONFIG) {
   throw new Error("Please specify a valid NODE_ENV");
 }
+
 
 export default CONFIG;
