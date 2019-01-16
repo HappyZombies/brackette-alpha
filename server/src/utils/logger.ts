@@ -1,10 +1,9 @@
-
 import { Format } from "logform";
 import * as winston from "winston";
 
 import Config from "../config";
 
-const myFormat: Format = winston.format.printf((info) => {
+const myFormat: Format = winston.format.printf(info => {
   return `${info.timestamp} ${info.level}: ${info.message}`;
 });
 
