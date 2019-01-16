@@ -3,7 +3,7 @@ import { Router } from "express";
 import IBracketteRoutes from "../IBracketteRoutes";
 import UsersControllers from "../../controllers/usersControllers";
 import middlewares from "../../middlewares";
-import { NewUserSchema } from "../../models/Users";
+import { NewUserSchema, LoginUserSchema } from "../../models/Users";
 
 class UserRoutes implements IBracketteRoutes {
   routes: Router = Router();
@@ -23,7 +23,7 @@ class UserRoutes implements IBracketteRoutes {
   }
 
   private definePosts() {
-    this.routes.post("/login", () => {});
+    this.routes.post("/login", middlewares.joiValidation(LoginUserSchema), this.controller.create.login);
     this.routes.post("/register", middlewares.joiValidation(NewUserSchema), this.controller.create.createNew);
   }
 }

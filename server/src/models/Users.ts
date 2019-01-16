@@ -45,5 +45,20 @@ export const NewUserSchema = Joi.object().keys({
     .required(),
   password: Joi.string()
     .min(8)
+    .required(),
+  confirmPassword: Joi.string()
+    .valid(Joi.ref("password"))
     .required()
+    .options({
+      language: {
+        any: {
+          allowOnly: "must match password"
+        }
+      }
+    })
+});
+
+export const LoginUserSchema = Joi.object().keys({
+  username: Joi.string().required(),
+  password: Joi.string().required()
 });

@@ -65,9 +65,8 @@ class UsersControllerCreates implements IController {
     return res.status(weirdError.statusCode).json(weirdError);
   }
 
-  async getOne(req: BracketteRequest, res: Response): Promise<Response> {
-    const data: User[] = await User.query().column("username", "displayName");
-    return res.json(data[0]);
+  async login(req: BracketteRequest, res: Response): Promise<Response> {
+    return res.json(req.body);
   }
 }
 
