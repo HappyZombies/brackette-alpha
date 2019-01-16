@@ -12,6 +12,7 @@ class UserRoutes implements IBracketteRoutes {
 
     _defineRoutes(): void {
         this.defineGets();
+        this.definePosts();
     }
 
     private defineGets(): void {
@@ -20,8 +21,8 @@ class UserRoutes implements IBracketteRoutes {
     }
 
     private definePosts() {
-        this.routes.get("/login", () => { });
-        this.routes.get("/register", () => { });
+        this.routes.post("/login", () => { });
+        this.routes.post("/register", this.controller.create.createNew);
     }
 }
 

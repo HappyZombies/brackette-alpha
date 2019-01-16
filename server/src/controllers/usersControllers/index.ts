@@ -1,8 +1,9 @@
 import { IRestController, IController } from "../RestController";
 import UsersControllerGets from "./get";
+import UsersControllerCreates from "./create";
 
 class UsersControllers implements IRestController {
-  create: IController = null;
+  create: UsersControllerCreates = new UsersControllerCreates();
   get: UsersControllerGets = new UsersControllerGets();
   update: IController = null;
   delete: IController = null;
