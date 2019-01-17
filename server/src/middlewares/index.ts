@@ -1,7 +1,8 @@
 import { joiValidation } from "./JoiValidations";
-import { validateJwt } from "./Jwt"
+import { validateJwt } from "./Jwt";
 
-export default class Middlewares {
+class Middlewares {
   public static joiValidation = joiValidation;
   public static validateJwt = validateJwt;
 }
+export default Middlewares;

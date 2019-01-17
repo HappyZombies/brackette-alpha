@@ -1,4 +1,3 @@
-
 export interface IConfig {
   CLIENT: string;
   DB_HOST: string;
@@ -9,11 +8,6 @@ export interface IConfig {
   JWT_SECRET: string;
   LOG_LEVEL: string;
   PORT: string | number;
-}
-export interface IThinkyConfig {
-  db: string,
-  port: number | string,
-  host: string
 }
 
 export interface IConfiguration {
@@ -58,13 +52,14 @@ class AppConfig implements IConfiguration {
   };
 }
 
-if (!process.env.NODE_ENV) { throw new Error("Please specify a NODE_ENV"); }
+if (!process.env.NODE_ENV) {
+  throw new Error("Please specify a NODE_ENV");
+}
 
 const CONFIG: IConfig = new AppConfig()[process.env.NODE_ENV];
 
 if (!CONFIG) {
   throw new Error("Please specify a valid NODE_ENV");
 }
-
 
 export default CONFIG;

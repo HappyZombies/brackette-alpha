@@ -1,8 +1,7 @@
 import { Model } from "objection";
 import * as Joi from "joi";
-import { join } from "bluebird";
 
-export default class User extends Model {
+class User extends Model {
   static tableName = "users";
   readonly id!: number;
   username!: string;
@@ -52,3 +51,5 @@ export const LoginUserSchema = Joi.object().keys({
   username: Joi.string().required(),
   password: Joi.string().required()
 });
+
+export default User;

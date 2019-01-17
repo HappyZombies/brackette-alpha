@@ -2,6 +2,10 @@ import * as Joi from "joi";
 import * as createError from "http-errors";
 import { Request, Response, NextFunction } from "express";
 
+/**
+ * Validates a defined Joi Schema before continuing the request.
+ * @param {Joi.SchemaLike} schema A defined SchemaLike object
+ */
 export const joiValidation = (schema: Joi.SchemaLike) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = Joi.validate(req.body, schema);
