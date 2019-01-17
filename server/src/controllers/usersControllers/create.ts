@@ -5,7 +5,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 import { IController } from "../RestController";
 import User from "../../models/Users";
 import BracketteRequest from "../../models/BracketteRequest";
-import { generateHash } from "../../utils/auth";
+import { generateHash, validPassword } from "../../utils/auth";
 import CONFIG from "../../config";
 
 class UsersControllerCreates implements IController {
@@ -66,7 +66,33 @@ class UsersControllerCreates implements IController {
   }
 
   async login(req: BracketteRequest, res: Response): Promise<Response> {
-    return res.json(req.body);
+    let foundUser: User;
+    const body: User = req.body;
+
+    try {
+      foundUser = await User.query()
+        .column("id", "username", "email", "password", "displayName")
+        .where("username", body.username)
+        .first();
+    } catch (err) {
+      const error = httpErrors(500, err.message);
+      return res.status(error.statusCode).json(error);
+    }
+    if (!foundUser) {
+      // this user does not exist, but throw the same error message anyways.
+      const error = httpErrors(401, "Incorrect username and/or password.");
+      return res.status(error.statusCode).json(error);
+    }
+
+    // the user does exist, so check password
+    if (!validPassword(body.password, foundUser.password)) {
+      const error = httpErrors(401, "Incorrect username and/or password.");
+      return res.status(error.statusCode).json(error);
+    }
+    // TODO: store things like ip address, # of logins, etc.
+    delete foundUser.password;
+    const token = jsonwebtoken.sign({ data: foundUser }, CONFIG.JWT_SECRET);
+    return res.json({ accessToken: token });
   }
 }
 

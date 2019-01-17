@@ -18,8 +18,8 @@ class UserRoutes implements IBracketteRoutes {
   }
 
   private defineGets(): void {
-    this.routes.get("/", this.controller.get.getAll);
-    this.routes.get("/:username", this.controller.get.getOne);
+    this.routes.get("/", middlewares.validateJwt, this.controller.get.getAll);
+    this.routes.get("/:username", middlewares.validateJwt, this.controller.get.getOne);
   }
 
   private definePosts() {

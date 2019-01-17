@@ -1,4 +1,5 @@
 import * as Joi from "joi";
+import * as createError from "http-errors";
 import { Request, Response, NextFunction } from "express";
 
 export const joiValidation = (schema: Joi.SchemaLike) => {
@@ -11,9 +12,8 @@ export const joiValidation = (schema: Joi.SchemaLike) => {
     } else {
       const { details } = error;
       const message = details.map(i => i.message).join(",");
-
-      console.log("error", message);
-      res.status(422).json({ error: message });
+      const err = createError(422, message);
+      res.status(err.statusCode).json(err);
     }
   };
 };
