@@ -8,6 +8,7 @@ exports.up = function (knex, Promise) {
         table.string("facebookKey").defaultTo(null);
         table.string("challongeKey").defaultTo(null);
         table.string("smashggKey").defaultTo(null);
+        table.boolean("admin").defaultTo(false);
         table.timestamp("updatedAt").defaultTo(knex.fn.now());
         table.timestamp("createdAt").defaultTo(knex.fn.now());
     });

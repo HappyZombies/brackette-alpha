@@ -73,6 +73,7 @@ class UsersControllerCreates implements IController {
       foundUser = await User.query()
         .column("id", "username", "email", "password", "displayName")
         .where("username", body.username)
+        .eager('tokens')
         .first();
     } catch (err) {
       const error = httpErrors(500, err.message);

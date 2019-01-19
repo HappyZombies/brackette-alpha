@@ -5,3 +5,10 @@ export const generateHash = (password: string): string =>
 
 export const validPassword = (password: string, hashedPassword: string): boolean =>
   bcrypt.compareSync(password, hashedPassword);
+
+export const rand = () =>
+  Math.random().toString(36).substr(2); // remove `0.`
+
+export const generateToken = () => {
+  return rand() + rand(); // to make it longer
+};
