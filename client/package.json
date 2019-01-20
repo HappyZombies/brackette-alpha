@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.0",
-    "@types/jest": "^23.3.10",
-    "@types/node": "^10.12.18",
-    "@types/react": "^16.7.17",
-    "@types/react-dom": "^16.0.11",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "react": "^16.7.0",
@@ -16,8 +12,9 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
+    "redux-promise-middleware": "^5.1.1",
     "socket.io-client": "^2.2.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,6 +24,19 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^23.3.13",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^7.0.0",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/redux": "^3.6.0",
+    "@types/redux-promise-middleware": "0.0.11",
+    "@types/socket.io-client": "^1.4.32"
   },
   "browserslist": [
     ">0.2%",
