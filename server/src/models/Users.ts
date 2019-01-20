@@ -18,7 +18,7 @@ class User extends Model {
   updatedAt?: Date;
 
   // optional
-  tokens?: UserTokens;
+  token: UserTokens;
 
   static jsonSchema = {
     type: "object",
