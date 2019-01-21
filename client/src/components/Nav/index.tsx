@@ -14,7 +14,7 @@ const ButtonAppBar = () => {
                 <IconButton color="inherit" aria-label="Menu">
                     <Icon>menu</Icon>
                 </IconButton>
-                <Typography variant="title" color="inherit">
+                <Typography variant="h5" color="inherit">
                     News
                     </Typography>
                 <Button color="inherit">Login</Button>
