@@ -1,27 +1,24 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
+import React from "react";
+import { AppBar, Button, Icon, Toolbar, Typography } from "@material-ui/core";
 
+import "./styles.css";
 
 const ButtonAppBar = () => {
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton color="inherit" aria-label="Menu">
-                    <Icon>menu</Icon>
-                </IconButton>
-                <Typography variant="h5" color="inherit">
-                    News
-                    </Typography>
-                <Button color="inherit">Login</Button>
-            </Toolbar>
-        </AppBar>
-    );
-}
-
+  return (
+    <div className="app-bar-wrapper">
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h5" color="inherit" className="grow">
+            Brackette
+          </Typography>
+          <Icon className="grow" fontSize="large">
+            laptop
+          </Icon>
+          <Button color="inherit">Login/Register</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 
 export default ButtonAppBar;
