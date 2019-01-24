@@ -5,8 +5,10 @@ import {
   FormControl,
   InputLabel,
   Input,
+  Icon,
   FormControlLabel,
   Checkbox,
+  Avatar,
   Button
 } from "@material-ui/core";
 
@@ -17,9 +19,9 @@ class Login extends Component {
     return (
       <div className="login-wrapper">
         <Paper className="login-paper">
-          {/* <Avatar>
-                    <LockOutlinedIcon />
-                </Avatar> */}
+          <Avatar>
+            <Icon>lock</Icon>
+          </Avatar>
           <Typography component="h1" variant="h5">
             Log in
           </Typography>

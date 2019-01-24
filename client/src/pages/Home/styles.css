@@ -1,0 +1,14 @@
+.brackette-hero {
+  display: block;
+  text-align: center;
+}
+
+#about {
+  margin-left: 20px;
+}
+
+.brackette-hero img {
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+}
