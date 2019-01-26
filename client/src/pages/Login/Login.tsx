@@ -11,6 +11,7 @@ import {
   Avatar,
   Button
 } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 
 import "./styles.css";
 
@@ -39,6 +40,8 @@ class Login extends Component {
               Sign in
             </Button>
           </form>
+          <br />
+          <Typography component="i" paragraph>Don't have an account? <Link to="/register">Register</Link></Typography>
         </Paper>
       </div>
     );

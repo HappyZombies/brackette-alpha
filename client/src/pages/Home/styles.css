@@ -1,4 +1,4 @@
-.brackette-hero {
+.brackette-hero, .brackette-features {
   display: block;
   text-align: center;
 }
@@ -7,8 +7,74 @@
   margin-left: 20px;
 }
 
+.brackette-hero-paper{
+  padding: 10px;
+}
+
 .brackette-hero img {
   display: block;
   margin: 0 auto;
   margin-top: 30px;
+  box-shadow: -4px 8px 16px 3px rgba(0,0,0,0.24), 0 4px 8px 0 rgba(0,0,0,0.12);
+}
+
+.brackette-intro {
+  padding: 30px;
+  text-align: center;
+}
+
+.intro-wrapper, .feature-wrapper{ 
+  flex-grow: 1;
+  margin: 0 auto;
+  max-width: 1250px;
+}
+
+.feature-wrapper{
+  max-width: 1100px;
+}
+.feature-wrapper .row .feature-text {
+  text-align: left;
+}
+
+.feature-text-opposite {
+  text-align: right;
+}
+
+.brackette-features-paper {
+  padding: 30px 250px;
+}
+
+.brackette-features-paper h2 {
+  margin-bottom: 90px;
+}
+
+.brackette-features-paper .row {
+  margin-bottom: 120px;
+}
+
+.row img {
+  box-shadow: -4px 8px 16px 3px rgba(0,0,0,0.24), 0 4px 8px 0 rgba(0,0,0,0.12);
+  border-radius: 3px;
+}
+
+.feature-img{ 
+  perspective: 200px;
+}
+
+.feature-img img {
+  -webkit-transform: scale(0.9) rotateY(-2deg);
+  -ms-transform: scale(0.9) rotateY(-2deg);
+  transform: scale(0.9) rotateY(-2deg);
+}
+
+.feature-img img.opposite  {
+  -webkit-transform: scale(0.9) rotateY(2deg);
+  -ms-transform: scale(0.9) rotateY(2deg);
+  transform: scale(0.9) rotateY(2deg);
+}
+
+.brackette-footer{
+  padding: 20px 0;
+  text-align: center;
+  background-color: #c49000!important;
 }

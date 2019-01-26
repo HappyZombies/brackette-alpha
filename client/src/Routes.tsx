@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import App from './App';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import App from './App';
+import Register from "./pages/Register";
 
 const Routes = () => (
     <Router>
@@ -13,6 +14,7 @@ const Routes = () => (
                 <Route exact path="/" component={Home} />
                 <Route path="/about" component={About} />
                 <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
             </App>
         </Switch>
     </Router>
