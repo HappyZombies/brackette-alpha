@@ -21,11 +21,11 @@ class Register extends Component {
             <div className="register-wrapper">
                 <Paper className="register-paper">
                     <Avatar>
-                        <Icon>person</Icon>
+                        <Icon className="fa fa-user" />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Register
-          </Typography>
+                    </Typography>
                     <form>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="email">Email Address</InputLabel>

@@ -8,6 +8,8 @@ import store from "./store";
 import { theme } from "./Theme";
 import { CssBaseline } from '@material-ui/core';
 
+import "./styles.css";
+
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider theme={theme} >

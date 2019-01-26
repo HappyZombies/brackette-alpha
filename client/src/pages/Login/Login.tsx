@@ -21,7 +21,7 @@ class Login extends Component {
       <div className="login-wrapper">
         <Paper className="login-paper">
           <Avatar>
-            <Icon>lock</Icon>
+            <Icon className="fa fa-lock" />
           </Avatar>
           <Typography component="h1" variant="h5">
             Log in

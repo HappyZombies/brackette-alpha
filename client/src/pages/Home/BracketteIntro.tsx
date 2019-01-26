@@ -9,7 +9,7 @@ const BracketteIntro = () => (
         <div className="intro-wrapper">
             <Grid container spacing={24}>
                 <Grid item xs>
-                    <Icon color="secondary" fontSize="large">assignment</Icon>
+                    <Icon color="secondary" className="fa fa-clipboard-list" fontSize="large" />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Manageable
                     </Typography>
@@ -18,7 +18,7 @@ const BracketteIntro = () => (
                     </Typography>
                 </Grid>
                 <Grid item xs>
-                    <Icon color="secondary" fontSize="large">people</Icon>
+                    <Icon color="secondary" className="fa fa-users" fontSize="large" />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Collaboration
                     </Typography>
@@ -27,7 +27,7 @@ const BracketteIntro = () => (
                     </Typography>
                 </Grid>
                 <Grid item xs>
-                    <Icon color="secondary" fontSize="large">accessibility_new</Icon>
+                    <Icon color="secondary" className="fa fa-handshake" fontSize="large" />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Happiness
                     </Typography>
