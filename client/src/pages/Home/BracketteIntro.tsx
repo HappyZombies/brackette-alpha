@@ -1,5 +1,7 @@
 import React from "react";
-import { Typography, Grid, Paper, Icon } from "@material-ui/core";
+import { Typography, Grid, Paper } from "@material-ui/core";
+import Icon from '@mdi/react'
+import { mdiClipboardTextOutline, mdiAccountGroupOutline, mdiThumbUpOutline } from '@mdi/js'
 
 const BracketteIntro = () => (
     <section className="brackette-intro">
@@ -9,7 +11,7 @@ const BracketteIntro = () => (
         <div className="intro-wrapper">
             <Grid container spacing={24}>
                 <Grid item xs>
-                    <Icon color="secondary" className="fa fa-clipboard-list" fontSize="large" />
+                    <Icon path={mdiClipboardTextOutline} size={1.5} />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Manageable
                     </Typography>
@@ -18,7 +20,7 @@ const BracketteIntro = () => (
                     </Typography>
                 </Grid>
                 <Grid item xs>
-                    <Icon color="secondary" className="fa fa-users" fontSize="large" />
+                    <Icon path={mdiAccountGroupOutline} size={1.5} />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Collaboration
                     </Typography>
@@ -27,7 +29,7 @@ const BracketteIntro = () => (
                     </Typography>
                 </Grid>
                 <Grid item xs>
-                    <Icon color="secondary" className="fa fa-handshake" fontSize="large" />
+                    <Icon path={mdiThumbUpOutline} size={1.5} />
                     <Typography component="h4" variant="h4" color="primary" gutterBottom>
                         Happiness
                     </Typography>

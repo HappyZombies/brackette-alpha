@@ -5,13 +5,13 @@ import {
   FormControl,
   InputLabel,
   Input,
-  Icon,
   FormControlLabel,
   Checkbox,
-  Avatar,
   Button
 } from "@material-ui/core";
 import { Link } from 'react-router-dom';
+import { mdiLock } from '@mdi/js'
+import Icon from '@mdi/react'
 
 import "./styles.css";
 
@@ -20,9 +20,7 @@ class Login extends Component {
     return (
       <div className="login-wrapper">
         <Paper className="login-paper">
-          <Avatar>
-            <Icon className="fa fa-lock" />
-          </Avatar>
+          <Icon path={mdiLock} size={1.2} />
           <Typography component="h1" variant="h5">
             Log in
           </Typography>

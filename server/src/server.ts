@@ -3,7 +3,7 @@ import * as express from "express";
 import app from "./app";
 import { logger } from "./utils/logger";
 
-const PORT: number = 3000;
+const PORT: number = 4000;
 
 app.listen(PORT, (err: express.Errback) => {
   if (err) {

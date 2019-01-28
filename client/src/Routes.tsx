@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 const Routes = () => (
     <Router>
@@ -15,6 +16,7 @@ const Routes = () => (
                 <Route path="/about" component={About} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/dashboard" component={Dashboard} />
             </App>
         </Switch>
     </Router>

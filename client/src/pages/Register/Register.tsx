@@ -5,47 +5,145 @@ import {
     FormControl,
     InputLabel,
     Input,
-    Icon,
     FormControlLabel,
     Checkbox,
-    Avatar,
-    Button
+    Button,
+    FormHelperText
 } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { mdiAccount, mdiLoading } from '@mdi/js'
+import Icon from '@mdi/react'
+import { Link, Redirect } from 'react-router-dom';
+import axios, { AxiosError } from "axios";
+import store from "store";
+
+interface RegisterData {
+    message: string;
+    accessToken: string;
+}
 
 import "./styles.css";
 
 class Register extends Component {
+    state = {
+        email: "",
+        username: "",
+        name: "",
+        password: "",
+        passwordConfirm: "",
+        errorHidden: true,
+        errorMessage: "",
+        registerPending: false
+    }
+
+    isDisabled = () => {
+        const { email, username, password, passwordConfirm, name, registerPending } = this.state;
+        return registerPending || !email || !username || !password || !passwordConfirm || !name
+    }
+
+    onButtonClick = () => {
+        const { email, username, password, passwordConfirm, name } = this.state;
+        this.setState({ error: false, errorMessage: "", registerPending: true });
+
+        if (password !== passwordConfirm) {
+            this.setState({ errorHidden: false, errorMessage: "Passwords do not match." });
+            return;
+        }
+
+        axios
+            .post<RegisterData>("/users/register", { email, username, password, displayName: name })
+            .then((res) => {
+                store.set("token", res.data.accessToken);
+                this.setState({ registerPending: false });
+            })
+            .catch((e: AxiosError) => {
+                if (e.response) {
+                    this.setState({ errorHidden: false, errorMessage: e.response.data.message, registerPending: false })
+                }
+            })
+    }
+
     render() {
+        const { email, username, password, name, passwordConfirm, errorHidden, errorMessage, registerPending } = this.state;
+        if (store.get("token")) {
+            return <Redirect to='/dashboard' />
+        }
         return (
             <div className="register-wrapper">
                 <Paper className="register-paper">
-                    <Avatar>
-                        <Icon className="fa fa-user" />
-                    </Avatar>
+                    <Icon path={mdiAccount} size={1.2} />
                     <Typography component="h1" variant="h5">
                         Register
                     </Typography>
-                    <form>
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="name">Name</InputLabel>
+                            <Input
+                                id="name"
+                                name="name"
+                                value={name}
+                                autoFocus
+                                onChange={(e) => this.setState({ name: e.target.value })}
+                            />
+                        </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" autoFocus />
+                            <Input
+                                id="email"
+                                name="email"
+                                autoComplete="email"
+                                type="email"
+                                value={email}
+                                onChange={(e) => this.setState({ email: e.target.value })}
+                            />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username" name="username" autoComplete="username" />
+                            <Input
+                                id="username"
+                                name="username"
+                                autoComplete="username"
+                                value={username}
+                                onChange={(e) => this.setState({ username: e.target.value })}
+                            />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input name="password" type="password" id="password" autoComplete="current-password" />
+                            <Input
+                                name="password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={password}
+                                onChange={(e) => this.setState({ password: e.target.value })}
+                            />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Confirm Password</InputLabel>
-                            <Input name="confirm-password" type="password" id="confirm-password" autoComplete="current-password" />
+                            <Input
+                                name="confirm-password"
+                                type="password"
+                                id="confirm-password"
+                                autoComplete="current-password"
+                                value={passwordConfirm}
+                                onChange={(e) => this.setState({ passwordConfirm: e.target.value })}
+                            />
                         </FormControl>
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-                        <Button type="submit" fullWidth variant="contained" color="primary">
-                            Register
+                        <FormHelperText
+                            hidden={errorHidden}
+                            component="h1"
+                            className="form-error"
+                            error
+                        >{errorMessage}</FormHelperText>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            disabled={this.isDisabled()}
+                            variant="contained"
+                            color="primary"
+                            onClick={this.onButtonClick}
+                        >
+                            {!registerPending ? "Register" : <Icon path={mdiLoading} size={1.5} spin={.8} />}
                         </Button>
                     </form>
                     <br />

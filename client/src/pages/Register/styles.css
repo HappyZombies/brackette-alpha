@@ -11,3 +11,8 @@
     align-items: center;
     padding: 16px 24px 24px;
 }
+
+.form-error {
+    text-align: center!important;
+    margin-bottom: 8px!important;
+}
