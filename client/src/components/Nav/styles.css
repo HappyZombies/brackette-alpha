@@ -6,5 +6,10 @@
 }
 
 .grow {
-  flex-grow: 1;
+  display: flex;
+}
+
+#logo {
+  margin-top: 7px;
+  margin-right: 8px;
 }
