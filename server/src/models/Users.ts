@@ -18,7 +18,7 @@ class User extends Model {
   updatedAt?: Date;
 
   // optional
-  token: UserTokens;
+  token?: UserTokens;
 
   static jsonSchema = {
     type: "object",
@@ -37,7 +37,7 @@ class User extends Model {
   };
 
   static relationMappings: RelationMappings = {
-    tokens: {
+    token: {
       relation: Model.HasOneRelation,
       modelClass: join(__dirname, 'UserTokens'),
       join: {
@@ -58,6 +58,8 @@ export const NewUserSchema = Joi.object().keys({
     .required(),
   email: Joi.string()
     .email()
+    .required(),
+  token: Joi.string()
     .required(),
   displayName: Joi.string()
     .min(3)

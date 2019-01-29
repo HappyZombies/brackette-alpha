@@ -4,6 +4,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 
 import { IController } from "../RestController";
 import User from "../../models/Users";
+import Tokens from "../../models/UserTokens";
 import BracketteRequest from "../../models/BracketteRequest";
 import { generateHash, validPassword } from "../../utils/auth";
 import CONFIG from "../../config";
@@ -11,7 +12,26 @@ import CONFIG from "../../config";
 class UsersControllerCreates implements IController {
   async createNew(req: Request, res: Response, next: NextFunction): Promise<Response> {
     let newUser: User;
+    let userToken: Tokens;
     let body: User = req.body;
+    // check if the token is valid or taken already.
+    try {
+      userToken = await Tokens.query()
+        .where("token", body.token)
+        .first();
+    } catch (err) {
+      const error = httpErrors(500, err.message);
+      return res.status(error.statusCode).json(error);
+    }
+
+    if (!userToken) {
+      const error = httpErrors(401, "This token is incorrect or has been used already.");
+      return res.status(error.statusCode).json(error);
+    }
+    if (userToken.userId) {
+      const error = httpErrors(401, "This token is incorrect or has been used already.");
+      return res.status(error.statusCode).json(error);
+    }
 
     // username taken?
     try {
@@ -51,6 +71,19 @@ class UsersControllerCreates implements IController {
       const error = httpErrors(500, err.message);
       return res.status(error.statusCode).json(error);
     }
+
+    // update the user tokens with the new user id
+    try {
+      await Tokens.query()
+        .patch({ userId: newUser.id })
+        .where("id", userToken.id)
+        .returning("*");
+    } catch (err) {
+      console.log("Hello??");
+      const error = httpErrors(500, err.message);
+      return res.status(error.statusCode).json(error);
+    }
+
     // user was created, give them the JSON token so they can just log in instantly.
     if (newUser) {
       newUser.password = "";
