@@ -22,6 +22,7 @@ interface RegisterData {
 }
 
 import "./styles.css";
+import { TOKEN } from "../../utils/Constants";
 
 class Register extends Component {
     state = {
@@ -53,7 +54,7 @@ class Register extends Component {
         axios
             .post<RegisterData>("/users/register", { email, username, password, displayName: name, token })
             .then((res) => {
-                store.set("token", res.data.accessToken);
+                store.set(TOKEN, res.data.accessToken);
                 this.setState({ registerPending: false });
             })
             .catch((e: AxiosError) => {
@@ -65,7 +66,7 @@ class Register extends Component {
 
     render() {
         const { email, username, password, name, passwordConfirm, token, errorHidden, errorMessage, registerPending } = this.state;
-        if (store.get("token")) {
+        if (store.get(TOKEN)) {
             return <Redirect to='/dashboard' />
         }
         return (

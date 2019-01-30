@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import { withAuth } from "./components/Auth";
 import App from './App';
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -16,7 +17,7 @@ const Routes = () => (
                 <Route path="/about" component={About} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={withAuth(Dashboard)} />
             </App>
         </Switch>
     </Router>

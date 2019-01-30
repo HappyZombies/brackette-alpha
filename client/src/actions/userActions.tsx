@@ -1,7 +1,15 @@
-import * as ActionTypes from "./actionTypes";
+import { UserActionTypes } from "./actionTypes";
 
-export class AddTodo {
-    readonly type = ActionTypes.ADD_NUMBER;
-    constructor(public payload: number) { }
+import { } from "redux-promise-middleware";
+import { User } from "../reducers/userReducers";
+import axios from "axios";
+
+export class ValidateUser {
+    readonly type: UserActionTypes = UserActionTypes.VALIDATE_USER;
+    public payload: User | any;
+    constructor(public jwt: string) {
+        this.payload = axios.post("/users/validate", { jwt }, { headers: { "Authorization": `Bearer: ${jwt}` } }).then((res) => res.data);
+    }
 }
 
+export type Actions = ValidateUser;
