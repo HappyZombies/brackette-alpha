@@ -28,7 +28,9 @@ class UsersControllerGets implements IController {
     }
     if (user.username === req.user.username) {
       // just return the jwt data...
-      return res.json(req.user);
+      const user = { ...req.user };
+      delete user.id;
+      return res.json(user);
     }
 
     return res.json(user);

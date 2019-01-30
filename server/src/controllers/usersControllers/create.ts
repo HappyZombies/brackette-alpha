@@ -128,6 +128,11 @@ class UsersControllerCreates implements IController {
     const token = jsonwebtoken.sign({ data: foundUser }, CONFIG.JWT_SECRET);
     return res.json({ accessToken: token });
   }
+
+
+  validate(req: BracketteRequest, res: Response): Response {
+    return req.user ? res.json(req.user) : res.status(401).json({ message: "Invalid credentials." });
+  }
 }
 
 export default UsersControllerCreates;

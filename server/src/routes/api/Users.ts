@@ -25,6 +25,7 @@ class UserRoutes implements IBracketteRoutes {
   private definePosts() {
     this.routes.post("/login", middlewares.joiValidation(LoginUserSchema), this.controller.create.login);
     this.routes.post("/register", middlewares.joiValidation(NewUserSchema), this.controller.create.createNew);
+    this.routes.post("/validate", middlewares.validateJwt, this.controller.create.validate);
   }
 }
 
