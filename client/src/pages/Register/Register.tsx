@@ -30,18 +30,19 @@ class Register extends Component {
         name: "",
         password: "",
         passwordConfirm: "",
+        token: "",
         errorHidden: true,
         errorMessage: "",
         registerPending: false
     }
 
     isDisabled = () => {
-        const { email, username, password, passwordConfirm, name, registerPending } = this.state;
-        return registerPending || !email || !username || !password || !passwordConfirm || !name
+        const { email, username, password, passwordConfirm, name, registerPending, token } = this.state;
+        return registerPending || !email || !username || !password || !passwordConfirm || !name || !token
     }
 
     onButtonClick = () => {
-        const { email, username, password, passwordConfirm, name } = this.state;
+        const { email, username, password, passwordConfirm, name, token } = this.state;
         this.setState({ error: false, errorMessage: "", registerPending: true });
 
         if (password !== passwordConfirm) {
@@ -50,7 +51,7 @@ class Register extends Component {
         }
 
         axios
-            .post<RegisterData>("/users/register", { email, username, password, displayName: name })
+            .post<RegisterData>("/users/register", { email, username, password, displayName: name, token })
             .then((res) => {
                 store.set("token", res.data.accessToken);
                 this.setState({ registerPending: false });
@@ -63,7 +64,7 @@ class Register extends Component {
     }
 
     render() {
-        const { email, username, password, name, passwordConfirm, errorHidden, errorMessage, registerPending } = this.state;
+        const { email, username, password, name, passwordConfirm, token, errorHidden, errorMessage, registerPending } = this.state;
         if (store.get("token")) {
             return <Redirect to='/dashboard' />
         }
@@ -126,6 +127,16 @@ class Register extends Component {
                                 autoComplete="current-password"
                                 value={passwordConfirm}
                                 onChange={(e) => this.setState({ passwordConfirm: e.target.value })}
+                            />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="token">Token</InputLabel>
+                            <Input
+                                id="token"
+                                name="token"
+                                autoComplete="token"
+                                value={token}
+                                onChange={(e) => this.setState({ token: e.target.value })}
                             />
                         </FormControl>
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
