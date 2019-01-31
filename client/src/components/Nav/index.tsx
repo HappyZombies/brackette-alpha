@@ -1,12 +1,15 @@
 import React from "react";
 import { AppBar, Button, Toolbar, Typography, IconButton } from "@material-ui/core";
 import Icon from '@mdi/react'
-import { mdiGithubFace, mdiTwitter, mdiReddit, mdiDiscord } from '@mdi/js'
+import { mdiGithubFace, mdiTwitter, mdiReddit, mdiDiscord, mdiAccount } from '@mdi/js'
 import { Link } from "react-router-dom";
 
 import "./styles.css";
+import { TOKEN } from "../../utils/Constants";
+import store from 'store';
 
 const Nav = () => {
+  const token = store.get(TOKEN);
   return (
     <div className="app-bar-wrapper">
       <AppBar position="static">
@@ -49,9 +52,17 @@ const Nav = () => {
               />
             </IconButton>
           </span>
-          <Button color="inherit" component={({ innerRef, ...props }) => <Link {...props} to="/login" />}>
-            Login/Register
-          </Button>
+          {token ?
+            <IconButton>
+              <Icon
+                path={mdiAccount}
+                size={1}
+                color="#24292D"
+              />
+            </IconButton> :
+            <Button color="inherit" component={({ innerRef, ...props }) => <Link {...props} to="/login" />}>
+              Login/Register
+          </Button>}
         </Toolbar>
       </AppBar>
     </div>

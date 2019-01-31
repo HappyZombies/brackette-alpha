@@ -7,16 +7,58 @@ import {
   Input,
   FormControlLabel,
   Checkbox,
-  Button
+  Button,
+  FormHelperText
 } from "@material-ui/core";
-import { Link } from 'react-router-dom';
-import { mdiLock } from '@mdi/js'
+import { Link, Redirect } from 'react-router-dom';
+import { mdiLock, mdiLoading } from '@mdi/js'
 import Icon from '@mdi/react'
+import axios, { AxiosError } from "axios";
+
+import store from "store";
+
+import { TOKEN } from "../../utils/Constants";
 
 import "./styles.css";
 
+interface LoginData {
+  accessToken: string;
+}
 class Login extends Component {
+  state = {
+    username: "",
+    password: "",
+    errorHidden: true,
+    errorMessage: "",
+    loginPending: false
+  }
+  isDisabled = () => {
+    const { username, password, loginPending } = this.state;
+    return loginPending || !username || !password
+  }
+
+  onButtonClick = () => {
+    const { username, password, } = this.state;
+    this.setState({ error: false, errorMessage: "", loginPending: true });
+
+    axios
+      .post<LoginData>("/users/login", { username, password })
+      .then((res) => {
+        store.set(TOKEN, res.data.accessToken);
+        this.setState({ loginPending: false });
+      })
+      .catch((e: AxiosError) => {
+        if (e.response) {
+          this.setState({ errorHidden: false, errorMessage: e.response.data.message, loginPending: false })
+        }
+      })
+  }
+
   render() {
+    const { errorHidden, errorMessage, username, password, loginPending } = this.state;
+    if (store.get(TOKEN)) {
+      return <Redirect to='/dashboard' />
+    }
     return (
       <div className="login-wrapper">
         <Paper className="login-paper">
@@ -24,18 +66,33 @@ class Login extends Component {
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <Input id="username" name="username" autoComplete="username" value={username}
+                onChange={(e) => this.setState({ username: e.target.value })} autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="current-password" value={password}
+                onChange={(e) => this.setState({ password: e.target.value })} />
             </FormControl>
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Sign in
+            <FormHelperText
+              hidden={errorHidden}
+              component="h1"
+              className="form-error"
+              error
+            >{errorMessage}</FormHelperText>
+            <Button
+              type="submit"
+              fullWidth
+              disabled={this.isDisabled()}
+              variant="contained"
+              color="primary"
+              onClick={this.onButtonClick}
+            >
+              {!loginPending ? "Log In" : <Icon path={mdiLoading} size={1.5} spin={.8} />}
             </Button>
           </form>
           <br />
