@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 import { TOKEN } from "../../utils/Constants";
 import store from 'store';
+import DropdownAccount from "./DropdownAccount";
 
 const Nav = () => {
   const token = store.get(TOKEN);
@@ -52,17 +53,13 @@ const Nav = () => {
               />
             </IconButton>
           </span>
-          {token ?
-            <IconButton>
-              <Icon
-                path={mdiAccount}
-                size={1}
-                color="#24292D"
-              />
-            </IconButton> :
-            <Button color="inherit" component={({ innerRef, ...props }) => <Link {...props} to="/login" />}>
-              Login/Register
-          </Button>}
+          {
+            token ?
+              <DropdownAccount /> :
+              <Button color="inherit" component={({ innerRef, ...props }) => <Link {...props} to="/login" />}>
+                Login/Register
+          </Button>
+          }
         </Toolbar>
       </AppBar>
     </div>

@@ -1,12 +1,17 @@
 import React from "react";
 import { Paper, Typography, IconButton, Icon } from "@material-ui/core";
 
-
 import "./styles.css";
 const Footer = () => (
     <footer>
         <Paper className="brackette-footer">
-            <Typography>© 2018 Gandalf / GitHub / Reddit</Typography>
+            <Typography>
+                © 2019 Brackette - v0.0.0-alpha
+                / Changelog
+                / Terms and Conditions
+                / Privacy Policy
+                / Contact
+            </Typography>
         </Paper>
     </footer>
 );
