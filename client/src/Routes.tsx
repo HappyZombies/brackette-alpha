@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Preferences from "./pages/Preferences";
 
 const Routes = () => (
     <Router>
@@ -18,6 +19,7 @@ const Routes = () => (
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/dashboard" component={withAuth(Dashboard)} />
+                <Route path="/preferences" component={withAuth(Preferences)} />
             </App>
         </Switch>
     </Router>

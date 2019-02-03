@@ -3,6 +3,8 @@ import { Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem, IconButton 
 import Icon from "@mdi/react";
 import { mdiAccount, mdiViewDashboard, mdiSettings, mdiBug, mdiLogoutVariant } from "@mdi/js";
 import { withRouter, RouteComponentProps } from "react-router";
+import store from 'store';
+import { TOKEN } from "../../utils/Constants";
 
 type State = {
     open: boolean;
@@ -37,6 +39,9 @@ class DropdownAccount extends Component<PropsType, State> {
 
     navigate = (event: any, path: string) => {
         this.handleClose(event);
+        if (path === "logout") {
+            store.remove(TOKEN);
+        }
         this.props.history.push(`/${path}`);
     }
 

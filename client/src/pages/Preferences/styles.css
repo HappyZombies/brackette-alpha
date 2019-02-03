@@ -1,0 +1,7 @@
+.settings-banner{
+    padding: 50px;
+    text-align: center;
+}
+.settings-banner > h1 {
+    font-size: 1.5em;
+}
