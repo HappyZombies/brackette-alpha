@@ -128,9 +128,24 @@ class UsersControllerCreates implements IController {
     return res.json({ accessToken: token });
   }
 
-  validate(req: BracketteRequest, res: Response): Response {
-    return req.user ? res.json(req.user) : res.status(401).json({ message: "Invalid credentials." });
+  async validate(req: BracketteRequest, res: Response): Promise<Response> {
+    let user: User;
+    if (req.user) {
+      try {
+        user = await User.query()
+          .column("*")
+          .where("id", req.user.id)
+          .first();
+      } catch (err) {
+        const error = httpErrors(500, err.message);
+        return res.status(error.statusCode).json(error);
+      }
+      delete user.password;
+      return res.json(user);
+    }
+    return res.status(401).json({ message: "Invalid credentials." });
   }
+
 }
 
 export default UsersControllerCreates;
