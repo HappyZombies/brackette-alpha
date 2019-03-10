@@ -5,14 +5,14 @@ import { mdiClipboardTextOutline, mdiAccountGroupOutline, mdiThumbUpOutline } fr
 
 const BracketteIntro = () => (
     <section className="brackette-intro">
-        <Typography component="h2" variant="h2" color="primary" gutterBottom>
+        <Typography component="h2" variant="h2" color="secondary" gutterBottom>
             What is Brackette?
         </Typography>
         <div className="intro-wrapper">
             <Grid container spacing={24}>
                 <Grid item xs>
                     <Icon path={mdiClipboardTextOutline} size={1.5} />
-                    <Typography component="h4" variant="h4" color="primary" gutterBottom>
+                    <Typography component="h4" variant="h4" color="secondary" gutterBottom>
                         Manageable
                     </Typography>
                     <Typography paragraph>
@@ -21,7 +21,7 @@ const BracketteIntro = () => (
                 </Grid>
                 <Grid item xs>
                     <Icon path={mdiAccountGroupOutline} size={1.5} />
-                    <Typography component="h4" variant="h4" color="primary" gutterBottom>
+                    <Typography component="h4" variant="h4" color="secondary" gutterBottom>
                         Collaboration
                     </Typography>
                     <Typography>
@@ -30,7 +30,7 @@ const BracketteIntro = () => (
                 </Grid>
                 <Grid item xs>
                     <Icon path={mdiThumbUpOutline} size={1.5} />
-                    <Typography component="h4" variant="h4" color="primary" gutterBottom>
+                    <Typography component="h4" variant="h4" color="secondary" gutterBottom>
                         Happiness
                     </Typography>
                     <Typography>
