@@ -3,7 +3,7 @@ import { Router } from "express";
 import IBracketteRoutes from "../IBracketteRoutes";
 import UsersControllers from "../../controllers/usersControllers";
 import middlewares from "../../middlewares";
-import { NewUserSchema, LoginUserSchema } from "../../models/Users";
+import { NewUserSchema, LoginUserSchema, UpdateUserSchema, UpdateUserPasswordSchema } from "../../models/Users";
 
 class UserRoutes implements IBracketteRoutes {
   routes: Router = Router();
@@ -15,6 +15,7 @@ class UserRoutes implements IBracketteRoutes {
   _defineRoutes(): void {
     this.defineGets();
     this.definePosts();
+    this.definePuts();
   }
 
   private defineGets(): void {
@@ -26,6 +27,11 @@ class UserRoutes implements IBracketteRoutes {
     this.routes.post("/login", middlewares.joiValidation(LoginUserSchema), this.controller.create.login);
     this.routes.post("/register", middlewares.joiValidation(NewUserSchema), this.controller.create.createNew);
     this.routes.post("/validate", middlewares.validateJwt, this.controller.create.validate);
+  }
+
+  private definePuts() {
+    this.routes.put("/update", [middlewares.validateJwt, middlewares.joiValidation(UpdateUserSchema)], this.controller.update.updateUser);
+    this.routes.put("/update-password", [middlewares.validateJwt, middlewares.joiValidation(UpdateUserPasswordSchema)], this.controller.update.updatePassword);
   }
 }
 

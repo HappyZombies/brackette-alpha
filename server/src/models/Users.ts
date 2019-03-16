@@ -75,4 +75,22 @@ export const LoginUserSchema = Joi.object().keys({
   password: Joi.string().required()
 });
 
+export const UpdateUserSchema = Joi.object().keys({
+  displayName: Joi.string(),
+  email: Joi.string().email(),
+  challongeKey: Joi.string(),
+  smashggKey: Joi.string()
+});
+
+export const UpdateUserPasswordSchema = Joi.object().keys({
+  password: Joi.string().required(),
+  newPassword: Joi.string()
+    .min(8)
+    .required(),
+  newPasswordConfirm: Joi.string()
+    .min(8)
+    .required()
+});
+
+
 export default User;

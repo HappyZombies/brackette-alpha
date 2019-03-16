@@ -79,7 +79,6 @@ class UsersControllerCreates implements IController {
         .where("id", userToken.id)
         .returning("*");
     } catch (err) {
-      console.log("Hello??");
       const error = httpErrors(500, err.message);
       return res.status(error.statusCode).json(error);
     }
