@@ -13,7 +13,6 @@ const Home = () => (
     <BracketteIntro />
     <BracketteFeatures />
     <BracketteFin />
-    <Footer />
   </div>
 );
 

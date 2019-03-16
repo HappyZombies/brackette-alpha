@@ -4,8 +4,8 @@ import "./styles.css";
 
 const PreferencesContainer = ({ children }: { children: JSX.Element }) =>
 
-    <Paper className="pref-container">
+    <div className="pref-container">
         {children}
-    </Paper>
+    </div>
 
 export default PreferencesContainer;

@@ -33,7 +33,7 @@ class Preferences extends React.Component<PreferencesProps, PreferencesState> {
         return (
             <div>
                 <div className="settings-banner">
-                    <Typography component="h1">PREFERENCES</Typography>
+                    <Typography component="h1" className="brackette-title">PREFERENCES</Typography>
                 </div>
                 <AppBar position="static" color="default">
                     <Tabs
