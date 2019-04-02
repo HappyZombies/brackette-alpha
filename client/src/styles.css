@@ -1,17 +1,17 @@
-#page-container{
+#page-container {
   position: relative;
   min-height: 100vh;
 }
 #content-wrap {
-  padding-bottom: 2.5rem;    
+  padding-bottom: 2.5rem;
 }
 
-.brackette-icon{
-    width: 100%!important;
+.brackette-icon {
+  width: 100% !important;
 }
 
 .brackette-title {
-    line-height: 1.1!important;
-    font-weight: 700!important;
-    letter-spacing: 2px!important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
 }

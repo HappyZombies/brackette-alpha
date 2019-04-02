@@ -1,8 +1,6 @@
 import React from "react";
 import Nav from "./components/Nav";
-import Footer from './pages/Home/Footer';
-
-
+import Footer from "./pages/Home/Footer";
 
 const App = ({ children }: { children: JSX.Element[] }) => {
   return (
@@ -13,7 +11,6 @@ const App = ({ children }: { children: JSX.Element[] }) => {
         <Footer />
       </div>
     </div>
-
   );
-}
+};
 export default App;

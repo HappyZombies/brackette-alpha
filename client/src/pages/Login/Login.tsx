@@ -10,9 +10,9 @@ import {
   Button,
   FormHelperText
 } from "@material-ui/core";
-import { Link, Redirect } from 'react-router-dom';
-import { mdiLock, mdiLoading } from '@mdi/js'
-import Icon from '@mdi/react'
+import { Link, Redirect } from "react-router-dom";
+import { mdiLock, mdiLoading } from "@mdi/js";
+import Icon from "@mdi/react";
 import axios, { AxiosError } from "axios";
 
 import store from "store";
@@ -31,33 +31,43 @@ class Login extends Component {
     errorHidden: true,
     errorMessage: "",
     loginPending: false
-  }
+  };
   isDisabled = () => {
     const { username, password, loginPending } = this.state;
-    return loginPending || !username || !password
-  }
+    return loginPending || !username || !password;
+  };
 
   onButtonClick = () => {
-    const { username, password, } = this.state;
+    const { username, password } = this.state;
     this.setState({ error: false, errorMessage: "", loginPending: true });
 
     axios
       .post<LoginData>("/users/login", { username, password })
-      .then((res) => {
+      .then(res => {
         store.set(TOKEN, res.data.accessToken);
         this.setState({ loginPending: false });
       })
       .catch((e: AxiosError) => {
         if (e.response) {
-          this.setState({ errorHidden: false, errorMessage: e.response.data.message, loginPending: false })
+          this.setState({
+            errorHidden: false,
+            errorMessage: e.response.data.message,
+            loginPending: false
+          });
         }
-      })
-  }
+      });
+  };
 
   render() {
-    const { errorHidden, errorMessage, username, password, loginPending } = this.state;
+    const {
+      errorHidden,
+      errorMessage,
+      username,
+      password,
+      loginPending
+    } = this.state;
     if (store.get(TOKEN)) {
-      return <Redirect to='/dashboard' />
+      return <Redirect to="/dashboard" />;
     }
     return (
       <div className="login-wrapper">
@@ -66,24 +76,41 @@ class Login extends Component {
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={e => e.preventDefault()}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" name="username" autoComplete="username" value={username}
-                onChange={(e) => this.setState({ username: e.target.value })} autoFocus />
+              <Input
+                id="username"
+                name="username"
+                autoComplete="username"
+                value={username}
+                onChange={e => this.setState({ username: e.target.value })}
+                autoFocus
+              />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" value={password}
-                onChange={(e) => this.setState({ password: e.target.value })} />
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={e => this.setState({ password: e.target.value })}
+              />
             </FormControl>
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
             <FormHelperText
               hidden={errorHidden}
               component="h1"
               className="form-error"
               error
-            >{errorMessage}</FormHelperText>
+            >
+              {errorMessage}
+            </FormHelperText>
             <Button
               type="submit"
               fullWidth
@@ -92,11 +119,17 @@ class Login extends Component {
               color="primary"
               onClick={this.onButtonClick}
             >
-              {!loginPending ? "Log In" : <Icon path={mdiLoading} size={1.5} spin={.8} />}
+              {!loginPending ? (
+                "Log In"
+              ) : (
+                <Icon path={mdiLoading} size={1.5} spin={0.8} />
+              )}
             </Button>
           </form>
           <br />
-          <Typography component="i" paragraph>Don't have an account? <Link to="/register">Register</Link></Typography>
+          <Typography component="i" paragraph>
+            Don't have an account? <Link to="/register">Register</Link>
+          </Typography>
         </Paper>
       </div>
     );
