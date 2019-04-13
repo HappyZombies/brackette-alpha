@@ -78,8 +78,8 @@ export const UpdateUserSchema = Joi.object().keys({
   displayName: Joi.string(),
   email: Joi.string().email(),
   username: Joi.string(),
-  challongeKey: Joi.string(),
-  smashggKey: Joi.string()
+  challongeKey: Joi.string().allow(""),
+  smashggKey: Joi.string().allow("")
 });
 
 export const UpdateUserPasswordSchema = Joi.object().keys({
