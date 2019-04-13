@@ -67,7 +67,7 @@ class Login extends Component {
       loginPending
     } = this.state;
     if (store.get(TOKEN)) {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to="/" />;
     }
     return (
       <div className="login-wrapper">

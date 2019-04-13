@@ -17,14 +17,12 @@ export interface User {
 }
 
 export interface UserState {
-  user: User | null;
-  jwt: string | null;
+  user: User | any;
   pending: boolean;
   error: any;
 }
 
 const defaultState: UserState = {
-  jwt: null,
   user: null,
   pending: true,
   error: null
@@ -35,6 +33,7 @@ const userReducers = (state = defaultState, action: Actions) => {
     case UserActionTypes.VALIDATE_USER_PENDING: {
       return { ...state, pending: true };
     }
+    case UserActionTypes.QUICK_VALIDATE_USER_FULFILLED:
     case UserActionTypes.VALIDATE_USER_FULFILLED: {
       return { ...state, user: action.payload, pending: false };
     }
