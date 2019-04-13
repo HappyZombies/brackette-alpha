@@ -12,7 +12,7 @@ class BracketteApi implements IBracketteRoutes {
   }
 
   _defineRoutes(): void {
-    this.routes.use("/users", this.userRoutes.routes)
+    this.routes.use("/users", this.userRoutes.routes);
   }
 }
 

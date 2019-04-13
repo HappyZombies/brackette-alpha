@@ -4,19 +4,19 @@ import IBracketteRoutes from "../IBracketteRoutes";
 import TokenControllers from "../../controllers/tokenControllers";
 
 class TokenRoutes implements IBracketteRoutes {
-    routes: Router = Router();
-    private controller: TokenControllers = new TokenControllers();
-    constructor() {
-        this._defineRoutes();
-    }
+  routes: Router = Router();
+  private controller: TokenControllers = new TokenControllers();
+  constructor() {
+    this._defineRoutes();
+  }
 
-    _defineRoutes(): void {
-        this.definePosts();
-    }
+  _defineRoutes(): void {
+    this.definePosts();
+  }
 
-    private definePosts() {
-        this.routes.post("/", this.controller.create.createNew);
-    }
+  private definePosts() {
+    this.routes.post("/", this.controller.create.createNew);
+  }
 }
 
 export default TokenRoutes;

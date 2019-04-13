@@ -10,7 +10,11 @@ const myFormat: Format = winston.format.printf(info => {
 export const logger: winston.Logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
-      format: winston.format.combine(winston.format.timestamp(), winston.format.colorize(), myFormat),
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.colorize(),
+        myFormat
+      ),
       level: Config.LOG_LEVEL
     })
   ]

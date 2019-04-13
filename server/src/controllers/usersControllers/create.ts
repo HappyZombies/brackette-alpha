@@ -10,7 +10,11 @@ import { generateHash, validPassword } from "../../utils/auth";
 import CONFIG from "../../config";
 
 class UsersControllerCreates implements IController {
-  async createNew(req: Request, res: Response, next: NextFunction): Promise<Response> {
+  async createNew(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response> {
     let newUser: User;
     let userToken: Tokens;
     let body: User = req.body;
@@ -25,11 +29,17 @@ class UsersControllerCreates implements IController {
     }
 
     if (!userToken) {
-      const error = httpErrors(401, "This token is incorrect or has been used already.");
+      const error = httpErrors(
+        401,
+        "This token is incorrect or has been used already."
+      );
       return res.status(error.statusCode).json(error);
     }
     if (userToken.userId) {
-      const error = httpErrors(401, "This token is incorrect or has been used already.");
+      const error = httpErrors(
+        401,
+        "This token is incorrect or has been used already."
+      );
       return res.status(error.statusCode).json(error);
     }
 
@@ -43,7 +53,10 @@ class UsersControllerCreates implements IController {
       return res.status(error.statusCode).json(error);
     }
     if (newUser) {
-      const error = httpErrors(409, "A user with this username already exists.");
+      const error = httpErrors(
+        409,
+        "A user with this username already exists."
+      );
       return res.status(error.statusCode).json(error);
     }
 
@@ -144,7 +157,6 @@ class UsersControllerCreates implements IController {
     }
     return res.status(401).json({ message: "Invalid credentials." });
   }
-
 }
 
 export default UsersControllerCreates;

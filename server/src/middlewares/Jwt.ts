@@ -11,7 +11,11 @@ import CONFIG from "../config";
  * @param {Express.Response} res The Express response property
  * @param {NextFunction} next The Express NextFunction
  */
-export const validateJwt = async (req: BracketteRequest, res: Response, next: NextFunction) => {
+export const validateJwt = async (
+  req: BracketteRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const jwtToken = retrieveJwt(req);
   if (!jwtToken) {
     const error = createError(401, "Invalid Credentials.");
@@ -26,7 +30,10 @@ export const validateJwt = async (req: BracketteRequest, res: Response, next: Ne
   } catch (err) {
     //If it's an expiration error, let's report that specifically.
     if (err.name === "TokenExpiredError") {
-      const error = createError(401, "Invalid Credentials. This token is timed out!");
+      const error = createError(
+        401,
+        "Invalid Credentials. This token is timed out!"
+      );
       res.status(error.statusCode).json(error);
       return;
     }

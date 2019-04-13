@@ -2,7 +2,7 @@ if (process.env.NODE_ENV === "production") {
   throw new Error("Can't run seeds in production");
 }
 
-exports.seed = async function (knex, Promise) {
+exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
   await knex("user_tokens").del();
   // insert into db.

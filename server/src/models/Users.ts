@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from "objection";
 import * as Joi from "joi";
-import UserTokens from "./UserTokens"
+import UserTokens from "./UserTokens";
 import { join } from "path";
 
 class User extends Model {
@@ -39,16 +39,16 @@ class User extends Model {
   static relationMappings: RelationMappings = {
     token: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'UserTokens'),
+      modelClass: join(__dirname, "UserTokens"),
       join: {
         from: "users.id",
         to: "user_tokens.userId"
       },
-      filter: (q) => {
+      filter: q => {
         return q.column("token");
       }
     }
-  }
+  };
 }
 
 export const NewUserSchema = Joi.object().keys({
@@ -59,8 +59,7 @@ export const NewUserSchema = Joi.object().keys({
   email: Joi.string()
     .email()
     .required(),
-  token: Joi.string()
-    .required(),
+  token: Joi.string().required(),
   displayName: Joi.string()
     .min(3)
     .max(255)
@@ -78,6 +77,7 @@ export const LoginUserSchema = Joi.object().keys({
 export const UpdateUserSchema = Joi.object().keys({
   displayName: Joi.string(),
   email: Joi.string().email(),
+  username: Joi.string(),
   challongeKey: Joi.string(),
   smashggKey: Joi.string()
 });
@@ -91,6 +91,5 @@ export const UpdateUserPasswordSchema = Joi.object().keys({
     .min(8)
     .required()
 });
-
 
 export default User;
