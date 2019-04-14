@@ -62,7 +62,7 @@ class UsersControllerUpdates implements IController {
       return res.status(error.statusCode).json(error);
     }
     if (!validPassword(body.password, user.password)) {
-      const error = httpErrors(401, "Unauthorized.");
+      const error = httpErrors(401, "Unauthorized to do this.");
       return res.status(error.statusCode).json(error);
     }
     const newpassword = generateHash(body.newPassword);
