@@ -1,23 +1,62 @@
 import React, { Component } from "react";
-import PreferencesContainer from "../PreferencesContainer";
 import {
   FormControl,
   InputLabel,
   Input,
   Button,
-  Grid
+  Grid,
+  FormHelperText,
+  Snackbar
 } from "@material-ui/core";
 import { User, UserState } from "../../reducers/userReducers";
-
+import PreferencesContainer from "../PreferencesContainer";
+import { Dispatch } from "redux";
+import { UpdateUserPassword, NewPasswordBody } from "../../actions/userActions";
+import { connect } from "react-redux";
+import { UserUpdateState } from "../../reducers/userUpdateReducers";
+import Icon from "@mdi/react";
+import { mdiLoading } from "@mdi/js";
 type Props = {
-  user: User;
-  userStates: UserState;
+  updateStates: UserUpdateState;
+  updateUserPassword: (body: NewPasswordBody) => any;
 };
 
-type State = {};
+type State = {
+  openSnack: boolean;
+  password: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+};
 
-class PasswordUpdate extends Component<State, Props> {
+class PasswordUpdate extends Component<Props, State> {
+  state = {
+    openSnack: false,
+    password: "",
+    newPassword: "",
+    newPasswordConfirm: ""
+  };
+
+  onSave = () => {
+    const { password, newPassword, newPasswordConfirm } = this.state;
+    const { updateUserPassword } = this.props;
+    updateUserPassword({ password, newPassword, newPasswordConfirm }).then(
+      () => {
+        this.setState({ openSnack: true });
+      }
+    );
+  };
+  isDisabled = () => {
+    const { password, newPassword, newPasswordConfirm } = this.state;
+    return (
+      !password ||
+      !newPassword ||
+      !newPasswordConfirm ||
+      newPassword !== newPasswordConfirm
+    );
+  };
   render() {
+    const { openSnack, password, newPassword, newPasswordConfirm } = this.state;
+    const { updateStates } = this.props;
     return (
       <PreferencesContainer>
         <Grid>
@@ -31,7 +70,8 @@ class PasswordUpdate extends Component<State, Props> {
                   id="currentpassword"
                   type="password"
                   name="currentpassword"
-                  value={"currentpassword"}
+                  value={password}
+                  onChange={e => this.setState({ password: e.target.value })}
                 />
               </FormControl>
             </Grid>
@@ -42,7 +82,8 @@ class PasswordUpdate extends Component<State, Props> {
                   id="newpassword"
                   name="newpassword"
                   type="password"
-                  value={"newpassword"}
+                  value={newPassword}
+                  onChange={e => this.setState({ newPassword: e.target.value })}
                 />
               </FormControl>
             </Grid>
@@ -55,28 +96,61 @@ class PasswordUpdate extends Component<State, Props> {
                   id="newpasswordconfirm"
                   name="newpasswordconfirm"
                   type="password"
-                  value={"newpasswordconfirm"}
+                  value={newPasswordConfirm}
+                  onChange={e =>
+                    this.setState({ newPasswordConfirm: e.target.value })
+                  }
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" variant="contained" color="primary">
-                Change Password
+              <FormHelperText
+                hidden={updateStates.error === null}
+                component="h1"
+                error
+              >
+                {updateStates.error}
+              </FormHelperText>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={this.isDisabled()}
+                onClick={this.onSave}
+              >
+                {!updateStates.pending ? (
+                  "Save"
+                ) : (
+                  <Icon path={mdiLoading} size={1.5} spin={0.8} />
+                )}
               </Button>
             </Grid>
           </form>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={openSnack}
+            ContentProps={{
+              "aria-describedby": "message-id-2"
+            }}
+            onClose={() => this.setState({ openSnack: false })}
+            message={<span id="message-id-2">Password Update!</span>}
+          />
         </Grid>
       </PreferencesContainer>
     );
   }
 }
 
-// const mapStateToProps = (state: any) => ({
-//     userStates: state.user
-// });
+const mapStateToProps = (state: any) => ({
+  updateStates: state.userUpdate
+});
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//     validateUser: (jwt: string) => dispatch(new ValidateUser(jwt))
-// })
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateUserPassword: (body: NewPasswordBody) =>
+    dispatch(new UpdateUserPassword(body))
+});
 
-export default PasswordUpdate;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PasswordUpdate);

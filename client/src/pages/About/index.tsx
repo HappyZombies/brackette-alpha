@@ -8,7 +8,7 @@ const About = () => (
     <Grid container>
       <Grid item xs>
         <Typography component="h1" variant="h3" gutterBottom>
-          About Us
+          About Brackette
         </Typography>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

@@ -1,11 +1,8 @@
 import { UserActionTypes } from "./actionTypes";
-
-import {} from "redux-promise-middleware";
 import { User } from "../reducers/userReducers";
-import axios from "axios";
 import { authAxios } from "../utils";
-import store from "store";
 import { TOKEN } from "../utils/Constants";
+import store from "store";
 
 export interface NewPasswordBody {
   password: string;
@@ -55,4 +52,8 @@ export class UpdateUserPassword {
   }
 }
 
-export type Actions = ValidateUser | UpdateUser | UpdateUserPassword;
+export type Actions =
+  | ValidateUser
+  | UpdateUser
+  | UpdateUserPassword
+  | QuickValidateUser;

@@ -14,30 +14,20 @@ const defaultState: UserUpdateState = {
 
 const userReducers = (state = defaultState, action: Actions) => {
   switch (action.type) {
+    case UserActionTypes.UPDATE_USER_PASS_PENDING:
     case UserActionTypes.UPDATE_USER_PENDING: {
-      return { ...state, pending: true };
+      return { ...state, pending: true, error: null };
     }
+    case UserActionTypes.UPDATE_USER_PASS_FULFILLED:
     case UserActionTypes.UPDATE_USER_FULFILLED: {
       return { ...state, pending: false };
     }
+    case UserActionTypes.UPDATE_USER_PASS_REJECTED:
     case UserActionTypes.UPDATE_USER_REJECTED: {
       return {
         ...state,
         pending: false,
-        error: "Error updating user values."
-      };
-    }
-    case UserActionTypes.UPDATE_USER_PASS_PENDING: {
-      return { ...state, pending: true };
-    }
-    case UserActionTypes.UPDATE_USER_PASS_FULFILLED: {
-      return { ...state, pending: false };
-    }
-    case UserActionTypes.UPDATE_USER_PASS_REJECTED: {
-      return {
-        ...state,
-        pending: false,
-        error: "Error updating user password."
+        error: action.payload.response.data.message
       };
     }
     default:
