@@ -5,7 +5,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 import { IController } from "../RestController";
 import User from "../../models/Users";
 import BracketteRequest from "models/BracketteRequest";
-import { generateHash, validPassword } from "../../utils/auth";
+import { generateHash, validPassword } from "../../utils";
 import CONFIG from "../../config";
 
 class UsersControllerUpdates implements IController {

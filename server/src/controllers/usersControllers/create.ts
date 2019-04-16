@@ -6,7 +6,7 @@ import { IController } from "../RestController";
 import User from "../../models/Users";
 import Tokens from "../../models/UserTokens";
 import BracketteRequest from "../../models/BracketteRequest";
-import { generateHash, validPassword } from "../../utils/auth";
+import { generateHash, validPassword } from "../../utils";
 import CONFIG from "../../config";
 
 class UsersControllerCreates implements IController {

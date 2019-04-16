@@ -3,7 +3,7 @@ import * as httpErrors from "http-errors";
 
 import { IController } from "../RestController";
 import Tokens from "../../models/UserTokens";
-import { generateToken } from "../../utils/auth";
+import { generateToken } from "../../utils";
 
 class TokenControllerCreates implements IController {
   async createNew(

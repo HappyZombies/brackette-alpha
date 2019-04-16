@@ -2,6 +2,7 @@ import { Model, RelationMappings } from "objection";
 import * as Joi from "joi";
 import UserTokens from "./UserTokens";
 import { join } from "path";
+import Tournaments from "./Tournaments";
 
 class User extends Model {
   static tableName = "users";
@@ -19,6 +20,7 @@ class User extends Model {
 
   // optional
   token?: UserTokens;
+  tournaments?: Tournaments[];
 
   static jsonSchema = {
     type: "object",
@@ -46,6 +48,17 @@ class User extends Model {
       },
       filter: q => {
         return q.column("token");
+      }
+    },
+    tournaments: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, "Tournaments"),
+      join: {
+        from: "users.id",
+        to: "tournaments.userId"
+      },
+      filter: q => {
+        return q.column("tournaments");
       }
     }
   };

@@ -7,7 +7,6 @@ class UserTokens extends Model {
   readonly id!: number;
   userId!: number | null;
   token!: string;
-  used: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -20,8 +19,7 @@ class UserTokens extends Model {
     properties: {
       id: { type: "integer" },
       userId: { type: "integer" },
-      token: { type: "string", maxLength: 255 },
-      used: { type: "boolean" }
+      token: { type: "string", maxLength: 255 }
     }
   };
   static relationMappings: RelationMappings = {
