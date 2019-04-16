@@ -109,7 +109,11 @@ class DropdownAccount extends Component<PropsType, State> {
                     </MenuItem>
                     <MenuItem
                       onClick={e => {
-                        this.navigate(e, "bug-report");
+                        e.preventDefault();
+                        window.open(
+                          "https://github.com/HappyZombies/brackette-alpha/issues/new",
+                          "_blank"
+                        );
                       }}
                     >
                       <Icon path={mdiBug} size={1} color="#24292D" />

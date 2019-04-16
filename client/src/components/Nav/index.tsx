@@ -51,7 +51,7 @@ const Nav = () => {
               <Icon path={mdiTwitter} size={1} color="#24292D" />
             </IconButton>
             <IconButton
-              href="https://github.com/happyzombies/brackette-alpha"
+              href="https://discord.gg/naYCSzT"
               target="_blank"
               className="grow"
             >
