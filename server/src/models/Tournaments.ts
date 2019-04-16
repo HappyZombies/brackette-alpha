@@ -1,6 +1,7 @@
 import { Model, RelationMappings } from "objection";
-import User from "./Users";
+import * as Joi from "joi";
 import { join } from "path";
+import User from "./Users";
 
 enum Hosters {
   CHALLONGE = "CHALLONGE",
@@ -11,7 +12,7 @@ class Tournaments extends Model {
   static tableName = "tournaments";
   readonly id!: number;
   userId!: number | null;
-  hosters!: Hosters;
+  hoster!: Hosters;
   socketId!: string;
   tournamentId!: string;
   nickname: string;
@@ -20,6 +21,7 @@ class Tournaments extends Model {
   roomCode!: string;
   subdomain: string;
   limit: number;
+  archived: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -28,11 +30,11 @@ class Tournaments extends Model {
 
   static jsonSchema = {
     type: "object",
-    required: ["hosters", "socketId", "tournamentId", "roomCode"],
+    required: ["hoster", "socketId", "tournamentId", "roomCode"],
     properties: {
       id: { type: "integer" },
       userId: { type: "integer" },
-      hosters: { type: "string" },
+      hoster: { type: "string" },
       socketId: { type: "string" },
       tournamentId: { type: "string" },
       nickname: { type: "string" },
@@ -40,7 +42,8 @@ class Tournaments extends Model {
       openMatches: { type: "object" },
       roomCode: { type: "string" },
       subdomain: { type: "string" },
-      limit: { type: "integer" }
+      limit: { type: "integer" },
+      archived: { type: "boolean" }
     }
   };
   static relationMappings: RelationMappings = {
@@ -54,5 +57,13 @@ class Tournaments extends Model {
     }
   };
 }
+
+// only need these four properties from the user, the rest are made by backend.
+export const NewTournamentSchema = Joi.object().keys({
+  hoster: Joi.string().required(),
+  socketId: Joi.string().required(),
+  nickname: Joi.string().required(),
+  tournamentId: Joi.string().required()
+});
 
 export default Tournaments;

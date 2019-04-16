@@ -56,9 +56,6 @@ class User extends Model {
       join: {
         from: "users.id",
         to: "tournaments.userId"
-      },
-      filter: q => {
-        return q.column("tournaments");
       }
     }
   };

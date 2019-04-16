@@ -19,6 +19,7 @@ exports.up = function(knex, Promise) {
       .notNullable();
     table.string("subdomain").defaultTo(null);
     table.integer("limit").defaultTo(100); //TODO: Is this really needed?
+    table.boolean("archived").defaultTo(false);
     table.timestamp("updatedAt").defaultTo(knex.fn.now());
     table.timestamp("createdAt").defaultTo(knex.fn.now());
   });
