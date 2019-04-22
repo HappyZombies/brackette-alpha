@@ -51,6 +51,8 @@ class DropdownAccount extends Component<PropsType, State> {
     this.handleClose(event);
     if (path === "logout") {
       store.remove(TOKEN);
+      this.props.history.push(`/`);
+      return;
     }
     this.props.history.push(`/${path}`);
   };

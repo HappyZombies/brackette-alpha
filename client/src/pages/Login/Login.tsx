@@ -42,7 +42,7 @@ class Login extends Component {
     this.setState({ error: false, errorMessage: "", loginPending: true });
 
     axios
-      .post<LoginData>("/users/login", { username, password })
+      .post<LoginData>("api/users/login", { username, password })
       .then(res => {
         store.set(TOKEN, res.data.accessToken);
         this.setState({ loginPending: false });

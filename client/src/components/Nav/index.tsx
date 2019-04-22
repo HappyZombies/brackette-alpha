@@ -12,7 +12,7 @@ import {
   mdiTwitter,
   mdiReddit,
   mdiDiscord,
-  mdiAccount
+  mdiTabletCellphone
 } from "@mdi/js";
 import { Link } from "react-router-dom";
 
@@ -63,6 +63,9 @@ const Nav = () => {
               className="grow"
             >
               <Icon path={mdiReddit} size={1} color="#24292D" />
+            </IconButton>
+            <IconButton href="/device" className="grow">
+              <Icon path={mdiTabletCellphone} size={1} color="#24292D" />
             </IconButton>
           </span>
           {token ? (

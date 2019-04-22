@@ -78,7 +78,7 @@ class Register extends Component {
     }
 
     axios
-      .post<RegisterData>("/users/register", {
+      .post<RegisterData>("api/users/register", {
         email,
         username,
         password,

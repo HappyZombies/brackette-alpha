@@ -11,6 +11,7 @@ import { ValidateUser } from "../../actions/userActions";
 import { User, UserState } from "../../reducers/userReducers";
 
 import "./styles.css";
+import Loading from "./../Loading/index";
 
 type Props = {
   user: User;
@@ -33,14 +34,7 @@ export function withAuth(AuthComponent: any) {
       render() {
         const { pending, error, user } = this.props.userStates;
         if (pending) {
-          return (
-            <Icon
-              path={mdiLoading}
-              size={4.5}
-              spin={1}
-              className="auth-loader"
-            />
-          );
+          return <Loading />;
         }
         if (!this.jwt || error || !user) {
           return <Redirect to="login" />;

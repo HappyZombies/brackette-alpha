@@ -7,9 +7,11 @@
     "@mdi/font": "^3.3.92",
     "@mdi/js": "^3.3.92",
     "@mdi/react": "^1.1.0",
+    "@types/http-proxy-middleware": "^0.19.2",
     "@types/react-swipeable-views": "^0.12.2",
     "@types/store": "^2.0.1",
     "axios": "^0.18.0",
+    "http-proxy-middleware": "^0.19.1",
     "lodash": "^4.17.11",
     "prettier": "^1.16.4",
     "react": "^16.7.0",
@@ -46,7 +48,6 @@
     "@types/redux-promise-middleware": "0.0.11",
     "@types/socket.io-client": "^1.4.32"
   },
-  "proxy": "http://localhost:4000/api",
   "browserslist": [
     ">0.2%",
     "not dead",
