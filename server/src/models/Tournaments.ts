@@ -18,6 +18,7 @@ class Tournaments extends Model {
   nickname: string;
   players: any;
   openMatches: any;
+  devices: any;
   roomCode!: string;
   subdomain: string;
   limit: number;
@@ -40,6 +41,7 @@ class Tournaments extends Model {
       nickname: { type: "string" },
       players: { type: "object" },
       openMatches: { type: "object" },
+      devices: { type: "object" },
       roomCode: { type: "string" },
       subdomain: { type: "string" },
       limit: { type: "integer" },

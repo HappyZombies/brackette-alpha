@@ -1,11 +1,16 @@
 import * as express from "express";
+import { createServer } from "http";
 
 import app from "./app";
 import { logger } from "./utils/logger";
+import { startSocketio } from "./controllers/tournamentRooms/SocketEvents";
 
 const PORT: number = 4000;
 
-app.listen(PORT, (err: express.Errback) => {
+const server = createServer(app);
+startSocketio(server);
+
+server.listen(PORT, (err: express.Errback) => {
   if (err) {
     logger.error(err);
     throw err;

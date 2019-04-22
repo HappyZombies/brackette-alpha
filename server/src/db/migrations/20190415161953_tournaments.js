@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
     table.string("tournamentId").notNullable();
     table.string("nickname").defaultTo(null);
     table.json("players").defaultTo(null);
+    table.json("devices").defaultTo(null);
     table.json("openMatches").defaultTo(null);
     table
       .string("roomCode")

@@ -26,6 +26,7 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
+    "@types/socket.io": "^2.1.2",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/express": "^4.16.0",
     "@types/http-errors": "^1.6.1",
