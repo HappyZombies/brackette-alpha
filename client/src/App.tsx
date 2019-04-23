@@ -5,8 +5,9 @@ import { DRAWER_WIDTH } from "./utils/Constants";
 
 const style = () => {
   return {
-    marginLeft:
-      window.location.pathname === "/dashboard" ? DRAWER_WIDTH : "inherit"
+    marginLeft: window.location.pathname.includes("dashboard")
+      ? DRAWER_WIDTH
+      : "inherit"
   };
 };
 

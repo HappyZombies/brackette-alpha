@@ -1,36 +1,33 @@
 import React from "react";
-import SideNav from "./SideNav";
-import DashboardContent from "./DashboardContent";
-import NewTournamentModal from "../../components/NewTournamentModal";
-
-import "./styles.css";
 import { Dispatch } from "redux";
-import { RetrieveTournaments } from "../../actions/tournamentActions";
 import { connect } from "react-redux";
-import { render } from "react-dom";
+import { RetrieveTournaments } from "../../actions/tournamentActions";
 import { TournamentStates } from "../../reducers/tournamentReducers";
 import Loading from "../../components/Loading";
+import { withAuth } from "../../components/Auth";
+import SideNav from "./SideNav";
+import "./styles.css";
 
 type Props = {
   tournamentsStates: TournamentStates;
   retrieveAvailableTournaments: () => any;
+  children: JSX.Element[];
 };
 type State = {};
-class Home extends React.Component<Props, State> {
+class Dashboard extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     props.retrieveAvailableTournaments();
   }
   render() {
-    const { tournamentsStates } = this.props;
+    const { tournamentsStates, children } = this.props;
     if (tournamentsStates.pending) {
       return <Loading />;
     }
     return (
       <div>
         <SideNav />
-        <DashboardContent />
-        <NewTournamentModal />
+        {children}
       </div>
     );
   }
@@ -44,7 +41,9 @@ const mapStateToProps = (state: any) => ({
   tournamentsStates: state.tournaments
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default withAuth(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Dashboard)
+);

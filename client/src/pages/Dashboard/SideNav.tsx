@@ -3,13 +3,12 @@ import {
   Drawer,
   List,
   Tooltip,
-  ListItem,
-  ListItemIcon,
   IconButton,
-  Avatar
+  Avatar,
+  Divider
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { mdiPlus } from "@mdi/js";
+import { mdiPlus, mdiHome } from "@mdi/js";
 import Icon from "@mdi/react";
 import { DRAWER_WIDTH } from "../../utils/Constants";
 import { intToRGB, hashCode } from "../../utils";
@@ -20,13 +19,17 @@ import {
   TournamentStates,
   Tournaments
 } from "../../reducers/tournamentReducers";
+import NewTournamentModal from "../../components/NewTournamentModal";
+import { withRouter } from "react-router";
 
 type Props = {
   tournamentsStates: TournamentStates;
   retrieveAvailableTournaments: () => any;
   classes: any;
 };
-type State = {};
+type State = {
+  open: boolean;
+};
 
 const styles = (theme: any) => ({
   drawer: {
@@ -39,8 +42,13 @@ const styles = (theme: any) => ({
 });
 
 class SideNav extends React.Component<Props, State> {
+  state = {
+    open: false
+  };
+  toggleModal = () => this.setState({ open: !this.state.open });
   render() {
     const { classes, tournamentsStates } = this.props;
+    const { open } = this.state;
     return (
       <Drawer
         variant="permanent"
@@ -51,9 +59,33 @@ class SideNav extends React.Component<Props, State> {
         }}
       >
         <List>
+          <Tooltip title="New Tournament" placement="right">
+            <IconButton
+              className="grow"
+              onClick={() =>
+                //@ts-ignore
+                this.props.history.push(`/dashboard/news`)
+              }
+            >
+              <Avatar
+                style={{
+                  backgroundColor: "transparent"
+                }}
+              >
+                <Icon path={mdiHome} size={1} />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+          <Divider />
           {tournamentsStates.availableTournaments.map((t: Tournaments) => (
             <Tooltip title={t.nickname} placement="right" key={t.id}>
-              <IconButton className="grow">
+              <IconButton
+                className="grow"
+                onClick={() =>
+                  //@ts-ignore
+                  this.props.history.push(`/dashboard/t/${t.id}`)
+                }
+              >
                 <Avatar
                   style={{
                     backgroundColor: `#${intToRGB(hashCode(t.nickname))}`
@@ -65,7 +97,7 @@ class SideNav extends React.Component<Props, State> {
             </Tooltip>
           ))}
           <Tooltip title="New Tournament" placement="right">
-            <IconButton className="grow">
+            <IconButton className="grow" onClick={this.toggleModal}>
               <Avatar
                 style={{
                   backgroundColor: "transparent",
@@ -78,6 +110,7 @@ class SideNav extends React.Component<Props, State> {
             </IconButton>
           </Tooltip>
         </List>
+        <NewTournamentModal open={open} toggleModal={this.toggleModal} />
       </Drawer>
     );
   }
@@ -94,4 +127,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(SideNav));
+  //@ts-ignore
+)(withStyles(styles)(withRouter(SideNav)));

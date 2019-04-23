@@ -7,9 +7,11 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
 import Preferences from "./pages/Preferences";
 import Devices from "./pages/Devices";
+import DashboardNews from "./pages/DashboardNews";
+import Dashboard from "./pages/Dashboard";
+import Tournaments from "./pages/Tournaments";
 
 const Routes = () => (
   <Router>
@@ -20,7 +22,14 @@ const Routes = () => (
         <Route path="/login" component={Login} />
         <Route path="/device" component={Devices} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={withAuth(Dashboard)} />
+        <Route
+          component={() => (
+            <Dashboard>
+              <Route path="/dashboard/news" component={DashboardNews} />
+              <Route path="/dashboard/t/:id" component={Tournaments} />
+            </Dashboard>
+          )}
+        />
         <Route path="/preferences" component={withAuth(Preferences)} />
       </App>
     </Switch>

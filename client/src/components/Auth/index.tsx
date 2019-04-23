@@ -14,7 +14,6 @@ import "./styles.css";
 import Loading from "./../Loading/index";
 
 type Props = {
-  user: User;
   validateUser: (jwt: string) => any;
   userStates: UserState;
 };
@@ -37,7 +36,7 @@ export function withAuth(AuthComponent: any) {
           return <Loading />;
         }
         if (!this.jwt || error || !user) {
-          return <Redirect to="login" />;
+          return <Redirect to="/login" />;
         }
         return <AuthComponent />;
       }
