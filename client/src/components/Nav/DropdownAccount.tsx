@@ -95,7 +95,7 @@ class DropdownAccount extends Component<PropsType, State> {
                   <MenuList>
                     <MenuItem
                       onClick={e => {
-                        this.navigate(e, "dashboard/news");
+                        this.navigate(e, "dashboard/activity");
                       }}
                     >
                       <Icon path={mdiViewDashboard} size={1} color="#24292D" />

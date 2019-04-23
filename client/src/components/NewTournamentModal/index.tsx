@@ -124,6 +124,10 @@ class NewTournamentModal extends React.Component<Props, State> {
   nextStep = () => this.setState({ currentStep: this.state.currentStep + 1 });
   prevStep = () => this.setState({ currentStep: this.state.currentStep - 1 });
   onSubmit = () => {
+    this.onClose();
+  };
+
+  onClose = () => {
     this.setState(initialState);
     this.props.toggleModal();
   };
@@ -134,7 +138,7 @@ class NewTournamentModal extends React.Component<Props, State> {
       <Dialog
         open={this.props.open}
         TransitionComponent={Transition}
-        onClose={this.props.toggleModal}
+        onClose={this.onClose}
         aria-labelledby="form-dialog-title"
         aria-describedby="alert-dialog-slide-description"
       >

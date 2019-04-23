@@ -7,6 +7,10 @@ import Loading from "../../components/Loading";
 import { withAuth } from "../../components/Auth";
 import SideNav from "./SideNav";
 import "./styles.css";
+import { Route } from "react-router-dom";
+import DashboardActivity from "./../DashboardActivity";
+import Tournaments from "./../Tournaments";
+import { withRouter } from "react-router";
 
 type Props = {
   tournamentsStates: TournamentStates;
@@ -20,14 +24,20 @@ class Dashboard extends React.Component<Props, State> {
     props.retrieveAvailableTournaments();
   }
   render() {
-    const { tournamentsStates, children } = this.props;
+    // @ts-ignore
+    const { tournamentsStates, match } = this.props;
     if (tournamentsStates.pending) {
       return <Loading />;
     }
     return (
       <div>
         <SideNav />
-        {children}
+        <Route
+          exact
+          path={`${match.url}/activity`}
+          component={DashboardActivity}
+        />
+        <Route exact path={`${match.url}/t/:id`} component={Tournaments} />
       </div>
     );
   }
@@ -41,7 +51,8 @@ const mapStateToProps = (state: any) => ({
   tournamentsStates: state.tournaments
 });
 
-export default withAuth(
+export default withRouter(
+  //@ts-ignore
   connect(
     mapStateToProps,
     mapDispatchToProps

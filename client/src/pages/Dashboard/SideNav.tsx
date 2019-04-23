@@ -47,7 +47,8 @@ class SideNav extends React.Component<Props, State> {
   };
   toggleModal = () => this.setState({ open: !this.state.open });
   render() {
-    const { classes, tournamentsStates } = this.props;
+    // @ts-ignore
+    const { classes, tournamentsStates, history, match } = this.props;
     const { open } = this.state;
     return (
       <Drawer
@@ -59,13 +60,10 @@ class SideNav extends React.Component<Props, State> {
         }}
       >
         <List>
-          <Tooltip title="New Tournament" placement="right">
+          <Tooltip title="Updates and Activity" placement="right">
             <IconButton
               className="grow"
-              onClick={() =>
-                //@ts-ignore
-                this.props.history.push(`/dashboard/news`)
-              }
+              onClick={() => history.push(`${match.url}/activity`)}
             >
               <Avatar
                 style={{
@@ -81,10 +79,7 @@ class SideNav extends React.Component<Props, State> {
             <Tooltip title={t.nickname} placement="right" key={t.id}>
               <IconButton
                 className="grow"
-                onClick={() =>
-                  //@ts-ignore
-                  this.props.history.push(`/dashboard/t/${t.id}`)
-                }
+                onClick={() => history.push(`${match.url}/t/${t.id}`)}
               >
                 <Avatar
                   style={{
@@ -124,8 +119,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   retrieveAvailableTournaments: () => dispatch(new RetrieveTournaments())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default withRouter(
   //@ts-ignore
-)(withStyles(styles)(withRouter(SideNav)));
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withStyles(styles)(SideNav))
+);
