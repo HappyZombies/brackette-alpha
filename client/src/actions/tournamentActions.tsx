@@ -14,15 +14,21 @@ export class RetrieveTournaments {
   }
 }
 
-export class CreateTournaments {
+export class CreateTournament {
   readonly type: TournamentActionTypes =
     TournamentActionTypes.CREATE_TOURNAMENTS;
   public payload: Tournaments[] | any;
   constructor(body: any) {
-    this.payload = authAxios
-      .post("/tournaments", body)
-      .then(() => authAxios.get("/tournaments"))
-      .then(res => res.data);
+    this.payload = authAxios.post("/tournaments", body).then(res => res.data);
+  }
+}
+
+export class SelectTournament {
+  readonly type: TournamentActionTypes =
+    TournamentActionTypes.SELECT_TOURNAMENT;
+  public payload: Tournaments[] | any;
+  constructor(id: string) {
+    this.payload = authAxios.get(`/tournaments/${id}`).then(res => res.data);
   }
 }
 

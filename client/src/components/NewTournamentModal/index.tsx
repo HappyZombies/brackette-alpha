@@ -16,6 +16,9 @@ import {
 import { Hosters } from "../../reducers/tournamentReducers";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
+import { CreateTournament } from "../../actions/tournamentActions";
+import { SelectTournament } from "./../../actions/tournamentActions";
+import { withRouter } from "react-router";
 
 function Transition(props: any) {
   return <Slide direction="up" {...props} />;
@@ -24,7 +27,12 @@ type Steps = {
   CHALLONGE: any[];
   SMASHGG: any[];
 };
-type Props = { open: boolean; toggleModal: () => void };
+type Props = {
+  open: boolean;
+  toggleModal: () => void;
+  createNewTournament: (body: any) => any;
+  selectTournament: (id: string) => any;
+};
 type State = {
   hoster: string;
   tournamentId: string;
@@ -124,7 +132,15 @@ class NewTournamentModal extends React.Component<Props, State> {
   nextStep = () => this.setState({ currentStep: this.state.currentStep + 1 });
   prevStep = () => this.setState({ currentStep: this.state.currentStep - 1 });
   onSubmit = () => {
-    this.onClose();
+    // @ts-ignore
+    const { createNewTournament, history, match } = this.props;
+    const { subdomain, tournamentId, nickname, hoster } = this.state;
+    createNewTournament({ nickname, tournamentId, subdomain, hoster }).then(
+      (data: any) => {
+        this.onClose();
+        history.push(`${match.url}/t/${data.value.newTournament}`);
+      }
+    );
   };
 
   onClose = () => {
@@ -162,6 +178,12 @@ class NewTournamentModal extends React.Component<Props, State> {
                 disabled
                 control={<Radio />}
                 label="Smashgg"
+              />
+              <FormControlLabel
+                value="BRACKETTE"
+                disabled
+                control={<Radio />}
+                label="Brackette RR"
               />
             </RadioGroup>
           </DialogContent>
@@ -204,10 +226,14 @@ class NewTournamentModal extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  createNewTournament: () => {}
+  createNewTournament: (body: any) => dispatch(new CreateTournament(body)),
+  selectTournament: (id: string) => dispatch(new SelectTournament(id))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(NewTournamentModal);
+export default withRouter(
+  //@ts-ignore
+  connect(
+    null,
+    mapDispatchToProps
+  )(NewTournamentModal)
+);
