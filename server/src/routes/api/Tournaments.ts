@@ -3,12 +3,7 @@ import { Router } from "express";
 import IBracketteRoutes from "../IBracketteRoutes";
 import TournamentsControllers from "../../controllers/tournamentsControllers";
 import middlewares from "../../middlewares";
-import {
-  NewUserSchema,
-  LoginUserSchema,
-  UpdateUserSchema,
-  UpdateUserPasswordSchema
-} from "../../models/Users";
+import { NewTournamentSchema } from "../../models/Tournaments";
 
 class UserRoutes implements IBracketteRoutes {
   routes: Router = Router();
@@ -24,15 +19,25 @@ class UserRoutes implements IBracketteRoutes {
   }
 
   private defineGets(): void {
-    this.routes.get("/", middlewares.validateJwt, this.controller.get.getAll);
+    this.routes.get(
+      "/",
+      middlewares.validateJwt,
+      this.controller.get.getAll.bind(this.controller.get)
+    );
     this.routes.get(
       "/:tourId",
       middlewares.validateJwt,
-      this.controller.get.getOne
+      this.controller.get.getOne.bind(this.controller.get)
     );
   }
 
-  private definePosts() {}
+  private definePosts() {
+    this.routes.post(
+      "/",
+      [middlewares.validateJwt, middlewares.joiValidation(NewTournamentSchema)],
+      this.controller.create.createNew.bind(this.controller.create)
+    );
+  }
 
   private definePuts() {}
 }

@@ -13,7 +13,7 @@ class Tournaments extends Model {
   readonly id!: number;
   userId!: number | null;
   hoster!: Hosters;
-  socketId!: string;
+  socketId: string;
   tournamentId!: string;
   nickname: string;
   players: any;
@@ -31,7 +31,7 @@ class Tournaments extends Model {
 
   static jsonSchema = {
     type: "object",
-    required: ["hoster", "socketId", "tournamentId", "roomCode"],
+    required: ["hoster", "tournamentId", "roomCode"],
     properties: {
       id: { type: "integer" },
       userId: { type: "integer" },
@@ -63,9 +63,11 @@ class Tournaments extends Model {
 // only need these four properties from the user, the rest are made by backend.
 export const NewTournamentSchema = Joi.object().keys({
   hoster: Joi.string().required(),
-  socketId: Joi.string().required(),
   nickname: Joi.string().required(),
-  tournamentId: Joi.string().required()
+  tournamentId: Joi.string().required(),
+  subdomain: Joi.string()
+    .allow("")
+    .optional()
 });
 
 export default Tournaments;
