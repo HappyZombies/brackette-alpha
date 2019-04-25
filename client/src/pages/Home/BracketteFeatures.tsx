@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Grid, Paper, Button } from "@material-ui/core";
+import { FormattedMessage } from "react-intl";
 
 const BracketteFeatures = () => (
   <section className="brackette-features">
@@ -7,15 +8,15 @@ const BracketteFeatures = () => (
       <div className="feature-wrapper">
         <Grid>
           <Typography component="h2" variant="h2" gutterBottom>
-            Features
+            <FormattedMessage id="app.FeatureTitle" />
           </Typography>
           <Grid container spacing={24} className="row">
             <Grid item md={6} className="feature-text">
               <Typography component="h5" variant="h5">
-                Feature #1
+                <FormattedMessage id="app.Feature1Title" />
               </Typography>
               <Typography paragraph>
-                Something Something something....
+                <FormattedMessage id="app.Feature1Desc" />
               </Typography>
             </Grid>
             <Grid item md={6} className="feature-img">
@@ -32,20 +33,20 @@ const BracketteFeatures = () => (
             </Grid>
             <Grid item md={6} className="feature-text-opposite">
               <Typography component="h5" variant="h5">
-                Feature #2
+                <FormattedMessage id="app.Feature2Title" />
               </Typography>
               <Typography paragraph>
-                Something Something something....
+                <FormattedMessage id="app.Feature2Desc" />
               </Typography>
             </Grid>
           </Grid>
           <Grid container spacing={24} className="row">
             <Grid item md={6} className="feature-text">
               <Typography component="h5" variant="h5">
-                Feature #3
+                <FormattedMessage id="app.Feature3Title" />
               </Typography>
               <Typography paragraph>
-                Something Something something....
+                <FormattedMessage id="app.Feature3Desc" />
               </Typography>
             </Grid>
             <Grid item md={6} className="feature-img">

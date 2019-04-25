@@ -6,11 +6,12 @@ import {
   mdiAccountGroupOutline,
   mdiThumbUpOutline
 } from "@mdi/js";
+import { FormattedMessage } from "react-intl";
 
 const BracketteIntro = () => (
   <section className="brackette-intro">
     <Typography component="h2" variant="h2" color="secondary" gutterBottom>
-      What is Brackette?
+      <FormattedMessage id="app.what" />
     </Typography>
     <div className="intro-wrapper">
       <Grid container spacing={24}>
@@ -22,10 +23,10 @@ const BracketteIntro = () => (
             color="secondary"
             gutterBottom
           >
-            Manageable
+            <FormattedMessage id="app.manageTitle" />
           </Typography>
           <Typography paragraph>
-            Manage every player without losing track.
+            <FormattedMessage id="app.manageDesc" />
           </Typography>
         </Grid>
         <Grid item xs>
@@ -36,11 +37,10 @@ const BracketteIntro = () => (
             color="secondary"
             gutterBottom
           >
-            Collaboration
+            <FormattedMessage id="app.collabTitle" />
           </Typography>
           <Typography>
-            Collaborate better with your TOs to make your tournaments run
-            faster.
+            <FormattedMessage id="app.collabDesc" />
           </Typography>
         </Grid>
         <Grid item xs>
@@ -51,9 +51,11 @@ const BracketteIntro = () => (
             color="secondary"
             gutterBottom
           >
-            Happiness
+            <FormattedMessage id="app.happyTitle" />
           </Typography>
-          <Typography>The tournaments will run itself.</Typography>
+          <Typography>
+            <FormattedMessage id="app.happyDesc" />
+          </Typography>
         </Grid>
       </Grid>
     </div>

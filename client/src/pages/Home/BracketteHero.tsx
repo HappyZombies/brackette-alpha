@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Button, Paper, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 const BracketteHero = () => (
   <section className="brackette-hero">
@@ -10,8 +11,7 @@ const BracketteHero = () => (
           Brackette
         </Typography>
         <Typography variant="h5" paragraph>
-          Make tournament management even easier with Brackette by realeasing
-          the full potential of Challonge and Smash.gg
+          <FormattedMessage id="app.intro" />
         </Typography>
         <Button
           color="primary"
@@ -21,7 +21,7 @@ const BracketteHero = () => (
             <Link {...props} to="/register" />
           )}
         >
-          Register
+          <FormattedMessage id="app.registerBttnTxt" />
         </Button>
         <Button
           color="secondary"
@@ -32,7 +32,7 @@ const BracketteHero = () => (
             <Link {...props} to="/about" />
           )}
         >
-          About Brackette
+          <FormattedMessage id="app.aboutBttnTxt" />
         </Button>
         <img src="https://via.placeholder.com/750x450" alt="something" />
       </Grid>
