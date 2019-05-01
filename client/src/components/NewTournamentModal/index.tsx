@@ -183,7 +183,7 @@ class NewTournamentModal extends React.Component<Props, State> {
                 value="BRACKETTE"
                 disabled
                 control={<Radio />}
-                label="Brackette RR"
+                label="Brackette Tournament"
               />
             </RadioGroup>
           </DialogContent>
