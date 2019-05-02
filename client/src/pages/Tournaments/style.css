@@ -1,0 +1,16 @@
+.tournament-title {
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+}
+
+.tournament-wrapper {
+  padding: 50px;
+  text-align: center;
+}
+.tournament-wrapper > h1 {
+  font-size: 1.5em;
+}
+
+.tournament-appBar {
+}

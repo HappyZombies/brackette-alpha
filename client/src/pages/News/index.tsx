@@ -10,9 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import alphaPic from "../../assets/alpha.png";
 import { Button } from "@material-ui/core";
 import { withRouter } from "react-router";
+import Loading from "../../components/Loading";
 
 class News extends React.Component {
-  state = { markdown: "" };
+  state = { markdown: "", pending: true };
   componentDidMount() {
     let readmePath = null;
     try {
@@ -21,6 +22,9 @@ class News extends React.Component {
     } catch (e) {
       //@ts-ignore
       console.error("Could not find file of id ", this.props.match.params.id);
+      this.setState({
+        pending: false
+      });
     }
     if (readmePath) {
       fetch(readmePath)
@@ -29,12 +33,16 @@ class News extends React.Component {
         })
         .then(text => {
           this.setState({
-            markdown: text
+            markdown: text,
+            pending: false
           });
         });
     }
   }
   render() {
+    if (this.state.pending) {
+      return <Loading />;
+    }
     if (!this.state.markdown) {
       return (
         <div className="pref-container">
