@@ -8,13 +8,13 @@ import ApiKeysUpdate from "../../components/ApiKeysUpdate";
 
 import "./styles.css";
 
-type PreferencesProps = {};
+type Props = {};
 
-type PreferencesState = {
+type State = {
   value: number;
 };
 
-class Preferences extends React.Component<PreferencesProps, PreferencesState> {
+class Preferences extends React.Component<Props, State> {
   state = {
     value: 0
   };

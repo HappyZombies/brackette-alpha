@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import io from "socket.io-client";
 import { Dispatch } from "redux";
 import { SelectTournament } from "../../actions/tournamentActions";
 import { TournamentStates } from "../../reducers/tournamentReducers";
@@ -18,6 +19,21 @@ type State = {
 };
 
 class TournamentSegment extends React.Component<Props, State> {
+  socket: SocketIOClient.Socket;
+  constructor(props: Props) {
+    super(props);
+    console.log("Contruct");
+    this.socket = io.connect();
+  }
+  componentDidMount() {
+    this.socket.emit(
+      "enter room",
+      this.props.tournamentsStates.currentTournament.roomCode
+    );
+    this.socket.on("welcome", function(data: any) {
+      console.log("Incoming message!!!:", data);
+    });
+  }
   state = {
     value: 0
   };
@@ -25,6 +41,12 @@ class TournamentSegment extends React.Component<Props, State> {
   handleChange = (event: any, value: number) => {
     this.setState({ value });
   };
+
+  componentWillUnmount() {
+    console.log("unmounting");
+    this.socket.emit("disconnecting");
+    this.socket.disconnect();
+  }
 
   handleChangeIndex = (index: number) => {
     this.setState({ value: index });
