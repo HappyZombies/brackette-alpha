@@ -29,6 +29,13 @@ class TournamentsControllerGets implements IController {
       })
       .where("userId", req.user.id)
       .first();
+    if (!data) {
+      const error = httpErrors(
+        404,
+        "Tournament not found, or you don't have access to view this tournament."
+      );
+      return res.status(error.statusCode).json(error);
+    }
     return res.json(data);
   }
 
