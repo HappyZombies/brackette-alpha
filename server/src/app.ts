@@ -1,28 +1,28 @@
-import * as bodyParser from "body-parser";
+import "reflect-metadata"; // We need this in order to use @Decorators
+
+import config from "./config";
+
 import * as express from "express";
-import * as morgan from "morgan";
-import * as knex from "knex";
-import { Model } from "objection";
 
-const knexConfig = require("./knexfile");
-import AllRoutes from "./routes";
+import Logger from "./loaders/logger";
 
-class App {
-  public app: express.Application;
-  public allRoutes: AllRoutes = new AllRoutes();
-  constructor() {
-    this.app = express();
-    this.config();
-  }
+async function startServer() {
+  const app = express();
 
-  private config(): void {
-    const k = knex(knexConfig.development);
-    Model.knex(k);
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({ extended: false }));
-    this.app.use(morgan("combined"));
-    this.app.use("/", this.allRoutes.routes);
-  }
+  await require("./loaders").default({ expressApp: app });
+
+  app.listen(config.PORT, err => {
+    if (err) {
+      Logger.error(err);
+      process.exit(1);
+      return;
+    }
+    Logger.info(`
+      #########################################################
+      👍  Brackette Server listening on port: ${config.PORT} 👍
+      #########################################################
+    `);
+  });
 }
 
-export default new App().app;
+startServer();

@@ -1,17 +1,20 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "pretty": true,
-        "sourceMap": true,
-        "target": "es6",
-        "outDir": "./dist",
-        "baseUrl": "./src"
-    },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "pretty": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "es6",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "noEmit": false
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }

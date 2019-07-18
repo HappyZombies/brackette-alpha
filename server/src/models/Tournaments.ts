@@ -60,14 +60,4 @@ class Tournaments extends Model {
   };
 }
 
-// only need these four properties from the user, the rest are made by backend.
-export const NewTournamentSchema = Joi.object().keys({
-  hoster: Joi.string().required(),
-  nickname: Joi.string().required(),
-  tournamentId: Joi.string().required(),
-  subdomain: Joi.string()
-    .allow("")
-    .optional()
-});
-
 export default Tournaments;

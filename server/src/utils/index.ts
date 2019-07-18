@@ -38,3 +38,9 @@ export const generateToken = () => {
 export const generateRoomCode = () => {
   return rand().toUpperCase();
 };
+
+export const ExpressError = (message: string, statusCode: number) => {
+  const err = new Error(message);
+  err["status"] = statusCode;
+  return err;
+};

@@ -1,7 +1,8 @@
 import { Model, RelationMappings } from "objection";
 import * as Joi from "joi";
-import UserTokens from "./UserTokens";
 import { join } from "path";
+
+import Tokens from "./Tokens";
 import Tournaments from "./Tournaments";
 
 class User extends Model {
@@ -19,7 +20,7 @@ class User extends Model {
   updatedAt?: Date;
 
   // optional
-  token?: UserTokens;
+  token?: Tokens;
   tournaments?: Tournaments[];
 
   static jsonSchema = {
@@ -41,10 +42,10 @@ class User extends Model {
   static relationMappings: RelationMappings = {
     token: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, "UserTokens"),
+      modelClass: join(__dirname, "Tokens"),
       join: {
         from: "users.id",
-        to: "user_tokens.userId"
+        to: "tokens.userId"
       },
       filter: q => {
         return q.column("token");
@@ -75,29 +76,6 @@ export const NewUserSchema = Joi.object().keys({
     .max(255)
     .required(),
   password: Joi.string()
-    .min(8)
-    .required()
-});
-
-export const LoginUserSchema = Joi.object().keys({
-  username: Joi.string().required(),
-  password: Joi.string().required()
-});
-
-export const UpdateUserSchema = Joi.object().keys({
-  displayName: Joi.string(),
-  email: Joi.string().email(),
-  username: Joi.string(),
-  challongeKey: Joi.string().allow(""),
-  smashggKey: Joi.string().allow("")
-});
-
-export const UpdateUserPasswordSchema = Joi.object().keys({
-  password: Joi.string().required(),
-  newPassword: Joi.string()
-    .min(8)
-    .required(),
-  newPasswordConfirm: Joi.string()
     .min(8)
     .required()
 });
