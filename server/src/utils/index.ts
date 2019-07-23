@@ -44,3 +44,8 @@ export const ExpressError = (message: string, statusCode: number) => {
   err["status"] = statusCode;
   return err;
 };
+
+/**
+ * Returns the sum of two numbers, this method is meant only for testing out the tests.
+ */
+export const sum = (a: number, b: number) => a + b;

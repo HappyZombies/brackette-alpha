@@ -6,7 +6,8 @@
     "build": "tsc",
     "dev": "nodemon",
     "start": "cross-env NODE_ENV=\"development\" ts-node ./src/app.ts",
-    "prod": "npm run build && npm run start"
+    "prod": "npm run build && npm run start",
+    "test": "jest"
   },
   "author": "Daniel Reguero",
   "license": "MIT",
@@ -32,9 +33,12 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/express": "^4.17.0",
     "@types/http-errors": "^1.6.1",
+    "@types/jest": "^24.0.15",
     "@types/joi": "^14.3.3",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/knex": "^0.16.1",
