@@ -39,7 +39,10 @@ export const generateRoomCode = () => {
   return rand().toUpperCase();
 };
 
-export const ExpressError = (message: string, statusCode: number) => {
+export const ExpressError = (
+  message: string = "Some sort of server side error occured",
+  statusCode: number = 500
+) => {
   const err = new Error(message);
   err["status"] = statusCode;
   return err;
