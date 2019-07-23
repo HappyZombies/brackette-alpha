@@ -3,31 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.9.0",
-    "@mdi/font": "^3.3.92",
-    "@mdi/js": "^3.3.92",
-    "@mdi/react": "^1.1.0",
-    "@types/http-proxy-middleware": "^0.19.2",
-    "@types/react-intl": "^2.3.17",
-    "@types/react-swipeable-views": "^0.12.2",
-    "@types/store": "^2.0.1",
-    "axios": "^0.18.0",
+    "@material-ui/core": "^4.2.1",
+    "@mdi/font": "^3.8.95",
+    "@mdi/js": "^3.8.95",
+    "@mdi/react": "^1.2.1",
+    "axios": "^0.19.0",
     "http-proxy-middleware": "^0.19.1",
-    "lodash": "^4.17.11",
-    "prettier": "^1.16.4",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-intl": "^2.8.0",
-    "react-markdown": "^4.0.8",
-    "react-redux": "^6.0.0",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
-    "react-swipeable-views": "^0.13.1",
-    "redux": "^4.0.1",
-    "redux-promise-middleware": "^5.1.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-markdown": "^4.1.0",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-swipeable-views": "^0.13.3",
+    "redux": "^4.0.4",
+    "redux-promise-middleware": "^6.1.1",
     "socket.io-client": "^2.2.0",
-    "store": "^2.0.12",
-    "typescript": "^3.2.4"
+    "store": "^2.0.12"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,23 +30,16 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/jest": "^23.3.13",
-    "@types/lodash": "^4.14.120",
-    "@types/node": "^10.12.18",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11",
-    "@types/react-redux": "^7.0.0",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/redux": "^3.6.0",
-    "@types/redux-promise-middleware": "0.0.11",
-    "@types/socket.io-client": "^1.4.32"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
