@@ -1,0 +1,146 @@
+@font-face {
+  font-family: Roboto;
+  src: url("./fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("./fonts/Roboto/Roboto-Bold.ttf");
+}
+* {
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+hr {
+  margin: 30px auto;
+  width: 40%;
+  height: 2px;
+  background: -webkit-linear-gradient(left, #4068ff, #ffc107);
+  background: -o-linear-gradient(left, #4068ff, #ffc107);
+  background: -moz-linear-gradient(left, #4068ff, #ffc107);
+  background: linear-gradient(left, #4068ff, #ffc107);
+  border: none; /*on supprime le style par défaut*/
+}
+
+.main-container {
+  font-family: "Roboto", "Courier New", Courier, monospace;
+  background: #ffc107;
+  background: -webkit-linear-gradient(bottom, #4068ff, #ffc107);
+  background: -o-linear-gradient(bottom, #4068ff, #ffc107);
+  background: -moz-linear-gradient(bottom, #4068ff, #ffc107);
+  background: linear-gradient(bottom, #4068ff, #ffc107);
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+}
+
+section {
+  margin: 0 auto;
+  color: #fff;
+  text-align: center;
+  padding: 100px 10px;
+}
+
+section h1 {
+  font-size: 60px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+section p {
+  font-size: 24px;
+  line-height: 1.2;
+  max-width: 526px;
+  margin: 0 auto;
+  padding-bottom: 43px;
+}
+.message {
+  font-size: 18px;
+  max-width: 750px;
+  text-align: left;
+  padding: 0;
+}
+
+form {
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+.wrap-input {
+  margin: 0 10px 20px 10px;
+  position: relative;
+  width: 280px;
+  max-width: calc(100% - 20px);
+  height: 50px;
+  background: #fff;
+  border-radius: 25px;
+}
+input {
+  outline: none;
+  border: none;
+  overflow: visible;
+  margin: 0;
+}
+button {
+  font-family: "RobotoBold";
+  background-color: #4068ff;
+  border-radius: 6px;
+  border: 0;
+  color: #ffffff !important;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  height: 3em;
+  line-height: 2.75em;
+  padding: 0 3em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+.wrap-input input {
+  font-family: "RobotoBold";
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.4;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px 0 30px;
+  border-radius: 25px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 12px;
+  color: #cccccc;
+  line-height: 1.4;
+}
+
+@media only screen and (max-width: 450px) {
+  form {
+    width: 94%;
+  }
+}

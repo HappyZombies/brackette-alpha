@@ -1,3 +1,0 @@
-#HElLO
-
-And welcome!
