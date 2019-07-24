@@ -127,6 +127,13 @@ button {
   padding: 0 20px 0 30px;
   border-radius: 25px;
 }
+#social a {
+  color: #fff !important;
+  padding: 10px;
+}
+.fa-half {
+  font-size: 1.5em;
+}
 
 footer {
   position: absolute;
@@ -134,7 +141,7 @@ footer {
   width: 100%;
   text-align: center;
   padding: 15px 0;
-  font-size: 12px;
+  font-size: 16px;
   color: #cccccc;
   line-height: 1.4;
 }
