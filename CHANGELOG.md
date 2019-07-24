@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+This project adheres to [Semantic Versioning](http://semver.org/)...sort of.
+
 ## [0.0.0-alpha] - 1/17/2019
 
 ### Added
