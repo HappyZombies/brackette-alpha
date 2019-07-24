@@ -6,4 +6,4 @@ The front-end (client directory) is a create-react-app that proxies to the serve
 
 ### server
 
-The server directory uses an express server with knexjs/objection for database connectivity to a MySQL server.
+The server directory uses express with knexjs/objection for database connectivity to a MySQL server.
