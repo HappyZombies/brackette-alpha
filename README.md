@@ -87,7 +87,4 @@ Add additional notes about how to deploy this on a live system.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- Steven - Idea & Initial work
-- Steven - Idea & Initial work
-
-See also the list of [contributors](./AUTHORS.md) who participated in this project.
+See the list of [contributors](./AUTHORS.md) who participated in this project.
