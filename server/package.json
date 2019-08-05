@@ -29,8 +29,11 @@
     "objection": "^1.6.9",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^2.2.0",
+    "swagger-stats": "^0.95.7",
+    "swagger-ui-express": "^4.0.7",
     "typedi": "^0.8.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.5.5",
@@ -53,5 +56,6 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "main": "index.js"
 }
