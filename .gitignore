@@ -56,7 +56,7 @@ typings/
 .yarn-integrity
 
 # misc
-dist/
+dist
 .env
 .DS_Store
 .env.local
