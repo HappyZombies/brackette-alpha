@@ -1,6 +1,6 @@
 export enum Hosters {
-  CHALLONGE = "CHALLONGE",
-  SMASHGG = "SMASHGG"
+  CHALLONGE = 'CHALLONGE',
+  SMASHGG = 'SMASHGG',
 }
 
 export interface ITournament {

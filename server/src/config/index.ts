@@ -1,7 +1,7 @@
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 
 // Set the NODE_ENV to 'development' by default
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 const envFound = dotenv.config();
 if (!envFound) {
@@ -16,10 +16,10 @@ export default {
   DB_PORT: parseInt(process.env.DB_PORT, 10),
   DB_USER: process.env.DB_USER,
   JWT_SECRET: process.env.JWT_SECRET,
-  LOG_LEVEL: process.env.LOG_LEVEL || "silly",
+  LOG_LEVEL: process.env.LOG_LEVEL || 'silly',
   PORT: parseInt(process.env.PORT, 10),
   API: {
-    PREFIX: "/api",
-    ADMIN: "/admin"
-  }
+    PREFIX: '/api',
+    ADMIN: '/admin',
+  },
 };

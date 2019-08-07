@@ -1,31 +1,31 @@
-import { Service, Inject } from "typedi";
-import * as HttpStatus from "http-status-codes";
+import * as HttpStatus from 'http-status-codes';
+import { Inject, Service } from 'typedi';
 
-import { ExpressError, generateRoomCode } from "../utils";
 import {
-  ITournamentMinimum,
-  ITournamentCreateDTO,
   INewTournamentCreateDTOM,
-  ITournament
-} from "../interfaces/ITournament";
+  ITournament,
+  ITournamentCreateDTO,
+  ITournamentMinimum,
+} from '../interfaces/ITournament';
+import { expressError, generateRoomCode } from '../utils';
 
 @Service()
 class TournamentService {
   constructor(
-    @Inject("logger") private logger,
-    @Inject("usersModel") private usersModel,
-    @Inject("tournamentsModel") private tournamentsModel
+    @Inject('logger') private logger,
+    @Inject('usersModel') private usersModel,
+    @Inject('tournamentsModel') private tournamentsModel,
   ) {}
 
   public async findTournamentsByUserId(
-    userId: string
+    userId: string,
   ): Promise<ITournamentMinimum[]> {
     let tournaments;
     try {
       tournaments = await this.tournamentsModel
         .query()
-        .column("id", "nickname", "hoster")
-        .where("userId", userId);
+        .column('id', 'nickname', 'hoster')
+        .where('userId', userId);
     } catch (err) {
       this.logger.error(err);
       throw err;
@@ -35,27 +35,27 @@ class TournamentService {
 
   public async findTournamentByIdAndUserId(
     tournamentId: string,
-    userId: string
+    userId: string,
   ): Promise<ITournament> {
     let tournament;
     try {
       tournament = await this.tournamentsModel
         .query()
         .findById(tournamentId)
-        .eager("user")
-        .modifyEager("user", b => {
-          b.column("username");
+        .eager('user')
+        .modifyEager('user', (b) => {
+          b.column('username');
         })
-        .where("userId", userId)
+        .where('userId', userId)
         .first();
     } catch (err) {
       this.logger.error(err);
       throw err;
     }
     if (!tournament) {
-      throw ExpressError(
+      throw expressError(
         "Tournament not found, or you don't have access to view this tournament.",
-        HttpStatus.NOT_FOUND
+        HttpStatus.NOT_FOUND,
       );
     }
     return tournament;
@@ -63,13 +63,13 @@ class TournamentService {
 
   public async createNew(
     userId: string,
-    tournamentCreateDTO: ITournamentCreateDTO
+    tournamentCreateDTO: ITournamentCreateDTO,
   ): Promise<{
     tournament: ITournament;
     allTournaments: ITournamentMinimum[];
   }> {
     const newTournamentDTO = {
-      ...tournamentCreateDTO
+      ...tournamentCreateDTO,
     } as INewTournamentCreateDTOM;
     newTournamentDTO.userId = userId;
     newTournamentDTO.roomCode = generateRoomCode();
@@ -80,7 +80,7 @@ class TournamentService {
       this.logger.error(err);
       throw err;
     }
-    // because the way redux is...we have to return a list of all the users tournaments as well as the new one made
+    // * Some UI / redux issue where both have to be returned...for now.
     let allTournaments: ITournamentMinimum[] = null;
     try {
       allTournaments = await this.findTournamentsByUserId(userId);

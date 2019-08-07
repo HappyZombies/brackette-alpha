@@ -1,12 +1,12 @@
-import { Service, Inject } from "typedi";
+import { Inject, Service } from 'typedi';
 
-import { generateToken } from "../utils";
+import { generateToken } from '../utils';
 
 @Service()
 class TokenService {
   constructor(
-    @Inject("logger") private logger,
-    @Inject("tokensModel") private tokensModel
+    @Inject('logger') private logger,
+    @Inject('tokensModel') private tokensModel,
   ) {}
 
   public async generateNewToken() {
@@ -25,7 +25,7 @@ class TokenService {
     try {
       token = await this.tokensModel
         .query()
-        .where("token", tokenValue)
+        .where('token', tokenValue)
         .first();
     } catch (err) {
       this.logger.error(err);
@@ -39,8 +39,8 @@ class TokenService {
     try {
       token = await this.tokensModel
         .query()
-        .where("token", givenToken)
-        .andWhere("userId", null)
+        .where('token', givenToken)
+        .andWhere('userId', null)
         .first();
     } catch (err) {
       this.logger.error(err);
@@ -51,7 +51,7 @@ class TokenService {
 
   public async addUserToToken(
     userId: string,
-    givenToken: string
+    givenToken: string,
   ): Promise<void> {
     let token;
     try {
@@ -59,7 +59,7 @@ class TokenService {
       await this.tokensModel
         .query()
         .patch({ userId })
-        .where("id", token.id);
+        .where('id', token.id);
     } catch (err) {
       this.logger.error(err);
       throw err;

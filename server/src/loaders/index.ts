@@ -1,15 +1,15 @@
-import expressLoader from "./express";
-import objectionLoader from "./objection";
-import dependencyInjector from "./dependencyInjector";
-import Logger from "./logger";
+import dependencyInjector from './dependencyInjector';
+import expressLoader from './expressLoader';
+import logger from './logger';
+import objectionLoader from './objectionLoader';
 
 export default async ({ expressApp }) => {
-  Logger.info("✌️ Starting...");
+  logger.info('✌️ Starting...');
   const models = await objectionLoader();
-  Logger.info("✌️ Objection ORM loaded!");
+  logger.info('✌️ Objection ORM loaded!');
 
   await dependencyInjector(models);
-  Logger.info("✌️ Dependency Injections... injected!");
+  logger.info('✌️ Dependency Injections... injected!');
   await expressLoader({ app: expressApp });
-  Logger.info("✌️ Express loaded!");
+  logger.info('✌️ Express loaded!');
 };

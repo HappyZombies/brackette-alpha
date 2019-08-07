@@ -1,20 +1,20 @@
-import { Container } from "typedi";
-import LoggerInstance from "./logger";
+import { Container } from 'typedi';
+import logger from './logger';
 
-export default models => {
+export default (models) => {
   try {
-    Container.set("logger", LoggerInstance);
+    Container.set('logger', logger);
 
-    LoggerInstance.info("✌️ Logger injected into container.");
+    logger.info('✌️ Logger injected into container.');
 
-    models.forEach(m => {
+    models.forEach((m) => {
       Container.set(m.name, m.model);
-      LoggerInstance.info(`✌️ Model '${m.name}' was injected into container.`);
+      logger.info(`✌️ Model '${m.name}' was injected into container.`);
     });
 
     return;
   } catch (e) {
-    LoggerInstance.error("🔥 Error on dependency injector loader: %o", e);
+    logger.error('🔥 Error on dependency injector loader: %o', e);
     throw e;
   }
 };

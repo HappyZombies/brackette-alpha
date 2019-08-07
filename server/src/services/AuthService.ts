@@ -1,27 +1,26 @@
-import { Service, Inject } from "typedi";
-import * as jsonwebtoken from "jsonwebtoken";
-import * as HttpStatus from "http-status-codes";
+import * as HttpStatus from 'http-status-codes';
+import * as jsonwebtoken from 'jsonwebtoken';
+import { Inject, Service } from 'typedi';
 
+import config from '../config';
+import { expressError, generateHash, validPassword } from '../utils';
 import {
   IUser,
   IUserCreateDTO,
-  IUserUpdatePasswordDTO,
-  IUserUpdateDTO,
   IUserLoginDTO,
-  IUserMaximum
-} from "./../interfaces/IUser";
-import { generateHash, ExpressError, validPassword } from "../utils";
-import config from "../config";
-import UserService from "./UserService";
-import TokenService from "./TokenService";
-import user from "api/routes/api/user";
+  IUserMaximum,
+  IUserUpdateDTO,
+  IUserUpdatePasswordDTO,
+} from './../interfaces/IUser';
+import TokenService from './TokenService';
+import UserService from './UserService';
 
 @Service()
 class AuthService {
   constructor(
-    @Inject("logger") private logger,
+    @Inject('logger') private logger,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
   ) {}
 
   public async getUser(id: string) {
@@ -34,13 +33,13 @@ class AuthService {
     }
     if (!user) {
       // really the user was not found, but throw invalid credentials
-      throw ExpressError("Invalide Credentials.", HttpStatus.UNAUTHORIZED);
+      throw expressError('Invalide Credentials.', HttpStatus.UNAUTHORIZED);
     }
     return user;
   }
 
   public async register(
-    newUserDTO: IUserCreateDTO
+    newUserDTO: IUserCreateDTO,
   ): Promise<{ user: IUser; accessToken: string }> {
     let newUser;
     let token;
@@ -53,9 +52,9 @@ class AuthService {
       throw err;
     }
     if (!token) {
-      throw ExpressError(
-        "This token is incorrect or has been used already.",
-        HttpStatus.UNAUTHORIZED
+      throw expressError(
+        'This token is incorrect or has been used already.',
+        HttpStatus.UNAUTHORIZED,
       );
     }
 
@@ -63,16 +62,16 @@ class AuthService {
     let available: boolean;
     try {
       available = await this.userService.isUsernameAvailable(
-        newUserDTO.username
+        newUserDTO.username,
       );
     } catch (err) {
       this.logger.error(err);
       throw err;
     }
     if (!available) {
-      throw ExpressError(
-        "A user with this username already exists.",
-        HttpStatus.CONFLICT
+      throw expressError(
+        'A user with this username already exists.',
+        HttpStatus.CONFLICT,
       );
     }
 
@@ -84,9 +83,9 @@ class AuthService {
       throw err;
     }
     if (newUser) {
-      throw ExpressError(
-        "A user with this email already exists.",
-        HttpStatus.CONFLICT
+      throw expressError(
+        'A user with this email already exists.',
+        HttpStatus.CONFLICT,
       );
     }
 
@@ -101,12 +100,12 @@ class AuthService {
       throw err;
     }
     const accessToken = jsonwebtoken.sign({ data: newUser }, config.JWT_SECRET);
-    Reflect.deleteProperty(newUser, "password");
-    return { user: newUser, accessToken };
+    Reflect.deleteProperty(newUser, 'password');
+    return { accessToken, user: newUser };
   }
 
   public async login(
-    userLoginDTO: IUserLoginDTO
+    userLoginDTO: IUserLoginDTO,
   ): Promise<{ user: IUser; accessToken: string }> {
     let user: IUserMaximum;
     try {
@@ -117,31 +116,31 @@ class AuthService {
     }
     if (!user) {
       // this user does not exist, but throw the same error message anyways.
-      throw ExpressError(
-        "Incorrect username and/or password.",
-        HttpStatus.UNAUTHORIZED
+      throw expressError(
+        'Incorrect username and/or password.',
+        HttpStatus.UNAUTHORIZED,
       );
     }
     // the user does exist, so check password
     if (!validPassword(userLoginDTO.password, user.password)) {
-      throw ExpressError(
-        "Incorrect username and/or password.",
-        HttpStatus.UNAUTHORIZED
+      throw expressError(
+        'Incorrect username and/or password.',
+        HttpStatus.UNAUTHORIZED,
       );
     }
     // TODO: eventually...store things like ip address, # of logins, etc.
-    Reflect.deleteProperty(user, "password");
+    Reflect.deleteProperty(user, 'password');
     const token = jsonwebtoken.sign({ data: user }, config.JWT_SECRET);
     return { user, accessToken: token };
   }
 
   public async updatePassword(
     currentUser: IUser,
-    userPasswordDTO: IUserUpdatePasswordDTO
+    userPasswordDTO: IUserUpdatePasswordDTO,
   ): Promise<boolean> {
     let user;
     if (userPasswordDTO.newPassword !== userPasswordDTO.newPasswordConfirm) {
-      throw ExpressError("Password must match.", HttpStatus.BAD_REQUEST);
+      throw expressError('Password must match.', HttpStatus.BAD_REQUEST);
     }
     try {
       user = await this.userService.findByUsername(currentUser.username);
@@ -150,38 +149,38 @@ class AuthService {
       throw err;
     }
     if (!validPassword(userPasswordDTO.password, user.password)) {
-      throw ExpressError("Unauthorized to do this.", HttpStatus.UNAUTHORIZED);
+      throw expressError('Unauthorized to do this.', HttpStatus.UNAUTHORIZED);
     }
     const newPassword = generateHash(userPasswordDTO.newPassword);
     return await this.userService.updatePasswordByUsername(
       user.username,
-      newPassword
+      newPassword,
     );
   }
 
   public async updateUser(
     currentUser: IUser,
-    userUpdateDTO: IUserUpdateDTO
+    userUpdateDTO: IUserUpdateDTO,
   ): Promise<{ user: IUser; accessToken: string }> {
     let user;
     if (userUpdateDTO.username) {
-      //trying to update username, check if it's valid
+      // trying to update username, check if it's valid
       let available;
       try {
         available = await this.userService.isUsernameAvailable(
-          userUpdateDTO.username
+          userUpdateDTO.username,
         );
       } catch (err) {
         this.logger.error(err);
         throw err;
       }
       if (!available) {
-        throw ExpressError("Username is taken.", 409);
+        throw expressError('Username is taken.', 409);
       }
     }
     user = await this.userService.updateByUsername(
       currentUser.username,
-      userUpdateDTO
+      userUpdateDTO,
     );
     const accessToken = jsonwebtoken.sign({ data: user }, config.JWT_SECRET);
     return { user, accessToken };

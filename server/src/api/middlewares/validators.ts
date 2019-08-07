@@ -1,4 +1,4 @@
-import * as Joi from "joi";
+import * as Joi from 'joi';
 
 export const newUserValidation = Joi.object().keys({
   username: Joi.string()
@@ -15,12 +15,12 @@ export const newUserValidation = Joi.object().keys({
     .required(),
   password: Joi.string()
     .min(8)
-    .required()
+    .required(),
 });
 
 export const loginUserSchema = Joi.object().keys({
   username: Joi.string().required(),
-  password: Joi.string().required()
+  password: Joi.string().required(),
 });
 
 export const updateUserSchema = Joi.object().keys({
@@ -28,9 +28,9 @@ export const updateUserSchema = Joi.object().keys({
   email: Joi.string().email(),
   username: Joi.string(),
   currentUsername: Joi.string(),
-  challongeKey: Joi.string().allow(""),
-  facebookKey: Joi.string().allow(""),
-  smashggKey: Joi.string().allow("")
+  challongeKey: Joi.string().allow(''),
+  facebookKey: Joi.string().allow(''),
+  smashggKey: Joi.string().allow(''),
 });
 
 export const updateUserPasswordSchema = Joi.object().keys({
@@ -40,7 +40,7 @@ export const updateUserPasswordSchema = Joi.object().keys({
     .required(),
   newPasswordConfirm: Joi.string()
     .min(8)
-    .required()
+    .required(),
 });
 
 export const newTournamentSchema = Joi.object().keys({
@@ -48,6 +48,6 @@ export const newTournamentSchema = Joi.object().keys({
   nickname: Joi.string().required(),
   tournamentId: Joi.string().required(),
   subdomain: Joi.string()
-    .allow("")
-    .optional()
+    .allow('')
+    .optional(),
 });

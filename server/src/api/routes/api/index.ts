@@ -1,6 +1,6 @@
-import { Router } from "express";
-import user from "./user";
-import tournaments from "./tournaments";
+import { Router } from 'express';
+import tournaments from './tournaments';
+import user from './user';
 
 const app = Router();
 user(app);

@@ -1,15 +1,15 @@
-import { Model, RelationMappings } from "objection";
-import * as Joi from "joi";
-import { join } from "path";
-import User from "./Users";
+import * as Joi from 'joi';
+import { Model, RelationMappings } from 'objection';
+import { join } from 'path';
+import Users from './Users';
 
 enum Hosters {
-  CHALLONGE = "CHALLONGE",
-  SMASHGG = "SMASHGG"
+  CHALLONGE = 'CHALLONGE',
+  SMASHGG = 'SMASHGG',
 }
 
 class Tournaments extends Model {
-  static tableName = "tournaments";
+  static tableName = 'tournaments';
   readonly id!: number;
   userId!: number | null;
   hoster!: Hosters;
@@ -27,36 +27,36 @@ class Tournaments extends Model {
   updatedAt?: Date;
 
   // optional relations
-  user?: User;
+  user?: Users;
 
   static jsonSchema = {
-    type: "object",
-    required: ["hoster", "tournamentId", "roomCode"],
+    type: 'object',
+    required: ['hoster', 'tournamentId', 'roomCode'],
     properties: {
-      id: { type: "integer" },
-      userId: { type: "integer" },
-      hoster: { type: "string" },
-      socketId: { type: "string" },
-      tournamentId: { type: "string" },
-      nickname: { type: "string" },
-      players: { type: "object" },
-      openMatches: { type: "object" },
-      devices: { type: "object" },
-      roomCode: { type: "string" },
-      subdomain: { type: "string" },
-      limit: { type: "integer" },
-      archived: { type: "boolean" }
-    }
+      id: { type: 'integer' },
+      userId: { type: 'integer' },
+      hoster: { type: 'string' },
+      socketId: { type: 'string' },
+      tournamentId: { type: 'string' },
+      nickname: { type: 'string' },
+      players: { type: 'object' },
+      openMatches: { type: 'object' },
+      devices: { type: 'object' },
+      roomCode: { type: 'string' },
+      subdomain: { type: 'string' },
+      limit: { type: 'integer' },
+      archived: { type: 'boolean' },
+    },
   };
   static relationMappings: RelationMappings = {
     user: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, "Users"),
+      modelClass: join(__dirname, 'Users'),
       join: {
-        from: "tournaments.userId",
-        to: "users.id"
-      }
-    }
+        from: 'tournaments.userId',
+        to: 'users.id',
+      },
+    },
   };
 }
 

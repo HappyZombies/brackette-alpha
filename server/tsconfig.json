@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "target": "es6",
     "outDir": "./dist",
+    "resolveJsonModule": true,
     "baseUrl": "./src",
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "emitDecoratorMetadata": true,
@@ -15,6 +16,6 @@
     "allowJs": true,
     "noEmit": false
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./src/**/*.json"],
   "exclude": ["node_modules"]
 }

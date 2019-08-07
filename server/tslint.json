@@ -1,12 +1,10 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": "tslint-config-airbnb",
   "jsRules": {},
   "rules": {
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "trailing-comma": false,
-    "member-access": false
+    "arrow-parens": true,
+    "ordered-imports": true
   },
   "rulesDirectory": []
 }

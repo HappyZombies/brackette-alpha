@@ -1,11 +1,11 @@
-import * as bcrypt from "bcrypt-nodejs";
+import * as bcrypt from 'bcrypt-nodejs';
 
 /**
  * Generates a hash for a password.
  * @param password any string really, ideally a password.
  */
 export const generateHash = (password: string): string =>
-  password ? bcrypt.hashSync(password, bcrypt.genSaltSync(8)) : "";
+  password ? bcrypt.hashSync(password, bcrypt.genSaltSync(8)) : '';
 
 /**
  * Returns true or false if the given string value matches the hashed value given.
@@ -14,7 +14,7 @@ export const generateHash = (password: string): string =>
  */
 export const validPassword = (
   password: string,
-  hashedPassword: string
+  hashedPassword: string,
 ): boolean => bcrypt.compareSync(password, hashedPassword);
 
 /**
@@ -39,12 +39,12 @@ export const generateRoomCode = () => {
   return rand().toUpperCase();
 };
 
-export const ExpressError = (
-  message: string = "Some sort of server side error occured",
-  statusCode: number = 500
+export const expressError = (
+  message: string = 'Some sort of server side error occured',
+  statusCode: number = 500,
 ) => {
   const err = new Error(message);
-  err["status"] = statusCode;
+  err['status'] = statusCode;
   return err;
 };
 
