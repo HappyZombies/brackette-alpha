@@ -5,6 +5,7 @@ import * as morgan from 'morgan';
 import * as swStats from 'swagger-stats';
 import * as swaggerUi from 'swagger-ui-express';
 import api from '../api';
+import { BracketteError } from '../utils';
 const swaggerDoc = require('../docs/swagger.json');
 
 export default ({ app }: { app: express.Application }) => {
@@ -23,18 +24,13 @@ export default ({ app }: { app: express.Application }) => {
   app.use('/', api);
 
   app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err['status'] = HttpStatus.NOT_FOUND;
+    const err = new BracketteError('Not Found', 404);
     next(err);
   });
 
   // for any other error handlers
   app.use((err, req, res, next) => {
-    res.status(err.status || HttpStatus.INTERNAL_SERVER_ERROR);
-    res.json({
-      errors: {
-        message: err.message,
-      },
-    });
+    res.status(err.httpStatusCode || HttpStatus.INTERNAL_SERVER_ERROR);
+    res.json(err);
   });
 };

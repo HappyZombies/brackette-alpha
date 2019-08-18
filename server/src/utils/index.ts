@@ -39,14 +39,24 @@ export const generateRoomCode = () => {
   return rand().toUpperCase();
 };
 
-export const expressError = (
-  message: string = 'Some sort of server side error occured',
-  statusCode: number = 500,
-) => {
-  const err = new Error(message);
-  err['status'] = statusCode;
-  return err;
-};
+export class BracketteError extends Error {
+  httpStatusCode: number;
+  context: any;
+  date: Date;
+  constructor(message, httpStatusCode = 500, context?, ...params) {
+    super(...params);
+
+    // Maintains proper stack trace for where our error was thrown (only available on V8)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, BracketteError);
+    }
+
+    this.message = message;
+    this.httpStatusCode = httpStatusCode;
+    this.context = context;
+    this.date = new Date();
+  }
+}
 
 /**
  * Returns the sum of two numbers, this method is meant only for testing out the tests.

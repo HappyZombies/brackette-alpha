@@ -7,7 +7,7 @@ import {
   ITournamentCreateDTO,
   ITournamentMinimum,
 } from '../interfaces/ITournament';
-import { expressError, generateRoomCode } from '../utils';
+import { BracketteError, generateRoomCode } from '../utils';
 
 @Service()
 class TournamentService {
@@ -53,7 +53,7 @@ class TournamentService {
       throw err;
     }
     if (!tournament) {
-      throw expressError(
+      throw new BracketteError(
         "Tournament not found, or you don't have access to view this tournament.",
         HttpStatus.NOT_FOUND,
       );

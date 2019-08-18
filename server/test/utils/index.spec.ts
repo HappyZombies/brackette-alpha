@@ -41,16 +41,18 @@ describe('Utility Methods', () => {
 
   describe('Express Error', () => {
     test('Is of type Error', () => {
-      expect(utils.ExpressError()).toBeInstanceOf(Error);
+      const bracketteError = new utils.BracketteError('Not Found', 404);
+      expect(bracketteError).toBeInstanceOf(Error);
     });
-    test("Default custom 'status' value contains 500 error and value in 'message' property.", () => {
-      expect(utils.ExpressError()['status']).toEqual(500);
-      expect(utils.ExpressError().message).toBeDefined();
+    test("Default 'httpStatusCode' value contains 500 error and value in 'message' property.", () => {
+      const bracketteError = new utils.BracketteError('Not Found');
+      expect(bracketteError.httpStatusCode).toEqual(500);
+      expect(bracketteError.message).toBeDefined();
     });
     test("Custom 'status' value contains whatever value was passed as well for the 'message' property.", () => {
-      const error = utils.ExpressError('Not Found!', 404);
-      expect(error['status']).toEqual(404);
-      expect(error.message).toEqual('Not Found!');
+      const bracketteError = new utils.BracketteError('Not Found!', 404);
+      expect(bracketteError.httpStatusCode).toEqual(404);
+      expect(bracketteError.message).toEqual('Not Found!');
     });
   });
 });

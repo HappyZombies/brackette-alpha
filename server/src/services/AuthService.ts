@@ -3,7 +3,7 @@ import * as jsonwebtoken from 'jsonwebtoken';
 import { Inject, Service } from 'typedi';
 
 import config from '../config';
-import { expressError, generateHash, validPassword } from '../utils';
+import { BracketteError, generateHash, validPassword } from '../utils';
 import {
   IUser,
   IUserCreateDTO,
@@ -33,7 +33,10 @@ class AuthService {
     }
     if (!user) {
       // really the user was not found, but throw invalid credentials
-      throw expressError('Invalide Credentials.', HttpStatus.UNAUTHORIZED);
+      throw new BracketteError(
+        'Invalide Credentials.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
     return user;
   }
@@ -52,7 +55,7 @@ class AuthService {
       throw err;
     }
     if (!token) {
-      throw expressError(
+      throw new BracketteError(
         'This token is incorrect or has been used already.',
         HttpStatus.UNAUTHORIZED,
       );
@@ -69,7 +72,7 @@ class AuthService {
       throw err;
     }
     if (!available) {
-      throw expressError(
+      throw new BracketteError(
         'A user with this username already exists.',
         HttpStatus.CONFLICT,
       );
@@ -83,7 +86,7 @@ class AuthService {
       throw err;
     }
     if (newUser) {
-      throw expressError(
+      throw new BracketteError(
         'A user with this email already exists.',
         HttpStatus.CONFLICT,
       );
@@ -116,14 +119,14 @@ class AuthService {
     }
     if (!user) {
       // this user does not exist, but throw the same error message anyways.
-      throw expressError(
+      throw new BracketteError(
         'Incorrect username and/or password.',
         HttpStatus.UNAUTHORIZED,
       );
     }
     // the user does exist, so check password
     if (!validPassword(userLoginDTO.password, user.password)) {
-      throw expressError(
+      throw new BracketteError(
         'Incorrect username and/or password.',
         HttpStatus.UNAUTHORIZED,
       );
@@ -140,7 +143,7 @@ class AuthService {
   ): Promise<boolean> {
     let user;
     if (userPasswordDTO.newPassword !== userPasswordDTO.newPasswordConfirm) {
-      throw expressError('Password must match.', HttpStatus.BAD_REQUEST);
+      throw new BracketteError('Password must match.', HttpStatus.BAD_REQUEST);
     }
     try {
       user = await this.userService.findByUsername(currentUser.username);
@@ -149,7 +152,10 @@ class AuthService {
       throw err;
     }
     if (!validPassword(userPasswordDTO.password, user.password)) {
-      throw expressError('Unauthorized to do this.', HttpStatus.UNAUTHORIZED);
+      throw new BracketteError(
+        'Unauthorized to do this.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
     const newPassword = generateHash(userPasswordDTO.newPassword);
     return await this.userService.updatePasswordByUsername(
@@ -175,7 +181,7 @@ class AuthService {
         throw err;
       }
       if (!available) {
-        throw expressError('Username is taken.', 409);
+        throw new BracketteError('Username is taken.', 409);
       }
     }
     user = await this.userService.updateByUsername(
