@@ -8,11 +8,10 @@ startServer = async () => {
   logger.debug("startServer() was called, starting server");
   const app = express();
   await loaders(app);
-  app.listen(process.env.PORT, err => {
+  app.listen(process.env.PORT, (err) => {
     if (err) {
       logger.error(err);
       process.exit(1);
-      return;
     }
     logger.info(`
       #########################################################

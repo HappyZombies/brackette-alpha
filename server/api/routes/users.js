@@ -3,30 +3,34 @@ const { Container } = require("typedi");
 const HttpStatus = require("http-status-codes");
 
 const UsersService = require("../../services/UsersService");
+const auth = require("../middleware/auth");
 
 const route = Router();
 
-module.exports = app => {
-  const userService = Container.get(UsersService);
-
+module.exports = (app) => {
+  // define route name
   app.use("/users", route);
 
+  // define any middlewares
+  route.use(auth);
+
+  // define any specific routes here
   route.get("/", async (req, res, next) => {
     try {
+      const userService = Container.get(UsersService);
       const data = await userService.getAllUsers();
       return res.json(data).status(HttpStatus.OK);
     } catch (e) {
-      // this will now go to our error handler middleware
       return next(e);
     }
   });
 
   route.get("/:id", async (req, res, next) => {
     try {
-      const data = await userService.getUser(req.params.id);
+      const userService = Container.get(UsersService);
+      const data = await userService.getUserById(req.params.id);
       return res.json(data).status(HttpStatus.OK);
     } catch (e) {
-      // this will now go to our error handler middleware
       return next(e);
     }
   });

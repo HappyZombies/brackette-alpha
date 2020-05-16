@@ -9,12 +9,12 @@ if (process.env.NODE_ENV !== "dev") {
       format: winston.format.combine(
         winston.format.cli(),
         winston.format.splat()
-      )
+      ),
     })
   );
 }
 
-const myFormat = winston.format.printf(info => {
+const myFormat = winston.format.printf((info) => {
   return `${info.timestamp} ${info.level}: ${info.message}`;
 });
 
@@ -29,7 +29,7 @@ const loggerInstance = winston.createLogger({
     winston.format.errors({ stack: true }),
     winston.format.splat(),
     winston.format.json()
-  )
+  ),
 });
 
 module.exports = loggerInstance;

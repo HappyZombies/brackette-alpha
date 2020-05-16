@@ -19,15 +19,18 @@ class AuthService {
       user = await this.UsersService.getUserByUsername(username);
     } catch (e) {
       logger.error("Error when user was trying to login!", e);
-      throw new ApiError(AUTH.INVALID_PASS, HttpStatus.NOT_FOUND);
+      throw new ApiError(
+        "Request cannot be processed at this time",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
     if (!user) {
       logger.debug("User was not found!");
-      throw new ApiError(AUTH.INVALID_PASS, HttpStatus.NOT_FOUND);
+      throw new ApiError(AUTH.INVALID_PASS, HttpStatus.UNAUTHORIZED);
     }
     if (!validPassword(password, user.password)) {
       logger.warn("Invalid password was entered!!", user.toJSON());
-      throw new ApiError(AUTH.INVALID_PASS, HttpStatus.NOT_FOUND);
+      throw new ApiError(AUTH.INVALID_PASS, HttpStatus.UNAUTHORIZED);
     }
     // TODO: Store things like ip address, invalid / failed attempts. Post-MVP
     const accesstoken = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
