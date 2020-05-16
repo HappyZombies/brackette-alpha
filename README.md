@@ -7,8 +7,9 @@
 
 <div align="center">
 
-![Shields.io](https://img.shields.io/badge/version-0.0.0--alpha-orange.svg)
-[![GitHub Issues](https://img.shields.io/github/issues/HappyZombies/brackette-alpha.svg)](https://github.com/HappyZombies/brackette-alpha/issues)
+![Shields.io](https://img.shields.io/badge/version-0.0.0--alpha-orange.svg?style=flat-square)
+[![GitHub Issues](https://img.shields.io/github/issues/HappyZombies/brackette-alpha.svg?style=flat-square&logo=github)](https://github.com/HappyZombies/brackette-alpha/issues)
+[![Trello](https://img.shields.io/badge/-trello-blue?style=flat-square&logo=trello)](https://trello.com/b/1m5Iy1Bb/brackette-alpha)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
@@ -34,7 +35,7 @@ Simply put: Brackette is a website that allows you to send Challonge matches to 
 
 ## 🧐 About <a name = "about"></a>
 
-The first ever version of Brackette can be found here, it is very bare bones but shows the potential of what can be done. Brackette Alpha however is a dedicated website with a MySQL Database that now allows for user account creation, creation of Challonge rooms and more. That is why it is an Alpha, it is an extension of the first prototype and will continue to grow.
+The first ever version/prototype of Brackette can be found here, it is very bare bones but shows the potential of what can be done. Brackette Alpha however is a dedicated web application that now allows for user account creation, creation of Challonge rooms and more. It is an Alpha version, as it is an extension of the first prototype and will continue to grow.
 
 <i>I'll add more here eventually...</i>
 
@@ -47,7 +48,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them.
 
 ```
-node...?
+node
 ```
 
 ### 💾 Installing
