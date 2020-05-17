@@ -14,6 +14,7 @@ class UsersService {
     try {
       user = await Users.query().findById(id);
     } catch (e) {
+      logger.warn(`Error querying users ${e.message}`);
       throw new ApiError("Internal Server Error Retrieving User.");
     }
     if (!user) throw new ApiError("Not Found", HttpStatus.NOT_FOUND);
