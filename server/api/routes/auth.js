@@ -21,10 +21,10 @@ module.exports = (app) => {
     }
   });
 
-  route.post("/signup", joiValidation(loginSchema), async (req, res, next) => {
+  route.post("/signup", async (req, res, next) => {
     const authService = Container.get(AuthService);
     try {
-      const data = await authService.authenticate(req.body);
+      const data = await authService.signup(req.body);
       return res.json(data).status(HttpStatus.OK);
     } catch (e) {
       return next(e);

@@ -9,6 +9,7 @@ class UsersService {
   async getAllUsers() {
     return await Users.query().select();
   }
+
   async getUserById(id) {
     let user;
     try {
@@ -20,9 +21,22 @@ class UsersService {
     if (!user) throw new ApiError("Not Found", HttpStatus.NOT_FOUND);
     return user;
   }
+
   async getUserByUsername(username) {
     return await Users.query().findOne({ username });
   }
+
+  async isUsernameAvailable(username) {
+    let user;
+    try {
+      user = await this.findByUsername(username);
+    } catch (err) {
+      logger.warn(err);
+      return false;
+    }
+    return user == null;
+  }
+
   async getUserByEmail(email) {
     return await Users.query().findOne({ email });
   }
