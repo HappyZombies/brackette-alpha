@@ -1,11 +1,11 @@
 const { Model } = require("objection");
-const Users = require("./Users");
 
 class AlphaTokens extends Model {
   static get tableName() {
     return "alpha_tokens";
   }
   static get relationMappings() {
+    const Users = require("./Users");
     return {
       user: {
         relation: Model.BelongsToOneRelation,

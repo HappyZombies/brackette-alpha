@@ -4,7 +4,7 @@ const HttpStatus = require("http-status-codes");
 
 const AuthService = require("../../services/AuthService");
 const joiValidation = require("../middleware/joiValidation");
-const { loginSchema } = require("../../validators/auth");
+const { loginSchema, signupSchema } = require("../../validators/auth");
 
 const route = Router();
 
@@ -21,7 +21,7 @@ module.exports = (app) => {
     }
   });
 
-  route.post("/signup", async (req, res, next) => {
+  route.post("/signup", joiValidation(signupSchema), async (req, res, next) => {
     const authService = Container.get(AuthService);
     try {
       const data = await authService.signup(req.body);

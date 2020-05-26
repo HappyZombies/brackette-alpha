@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const UsersService = require("./UsersService");
 const AlphaTokenService = require("./AlphaTokenService");
-const { validPassword } = require("../utils");
+const { validPassword, generatePasswordHash } = require("../utils");
 const ApiError = require("./ApiError");
 const logger = require("./Logger");
 const { AUTH } = require("../utils/constants");
@@ -14,6 +14,7 @@ class AuthService {
     this.usersService = Container.get(UsersService);
     this.alphaTokenService = Container.get(AlphaTokenService);
   }
+
   async authenticate(loginBody) {
     const { username, password } = loginBody;
     let user;
@@ -38,7 +39,7 @@ class AuthService {
   }
 
   async signup(registerBody) {
-    const { token } = registerBody;
+    const { token, username, email } = registerBody;
     const isTokenUsed = await this.alphaTokenService.isTokenUsed(token);
     if (isTokenUsed) {
       throw new ApiError(
@@ -46,7 +47,36 @@ class AuthService {
         HttpStatus.UNAUTHORIZED
       );
     }
-    return { dope: true };
+    // username taken?
+    const usernameIsTaken = await this.usersService.isUsernameAvailable(
+      username
+    );
+    if (usernameIsTaken) {
+      throw new ApiError(
+        "A user with this username already exists.",
+        HttpStatus.CONFLICT
+      );
+    }
+    const emailIsTaken = await this.usersService.isEmailAvailable(email);
+    if (emailIsTaken) {
+      throw new ApiError(
+        "A user with this email already exists.",
+        HttpStatus.CONFLICT
+      );
+    }
+    // all good, create the user in the database
+    registerBody.password = generatePasswordHash(registerBody.password);
+    let newUser;
+    try {
+      newUser = await this.usersService.createUser(registerBody);
+    } catch (err) {
+      logger.error(err);
+      throw new ApiError(
+        "Error when creating new user.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+    return this._authenticatedResponse(newUser);
   }
 
   _authenticatedResponse(user) {
