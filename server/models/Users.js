@@ -6,6 +6,7 @@ class Users extends Model {
   }
   $formatJson() {
     return {
+      id: this.id,
       username: this.username,
       email: this.email,
       displayName: this.displayName,
