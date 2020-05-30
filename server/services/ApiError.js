@@ -12,6 +12,9 @@ class ApiError extends Error {
     this.context = context;
     this.date = new Date();
   }
+  static internalServerErr() {
+    return new ApiError("Internal Server Error");
+  }
 }
 
 module.exports = ApiError;
