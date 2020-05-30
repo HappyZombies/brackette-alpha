@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt-nodejs");
 const chance = require("chance")();
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   generatePasswordHash: (password) =>
@@ -21,5 +22,10 @@ module.exports = {
       }
     }
     return null;
+  },
+  authenticatedResponse: (user) => {
+    // TODO: Store things like ip address, invalid / failed attempts. Post-MVP
+    const accesstoken = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
+    return { user, accesstoken };
   },
 };
