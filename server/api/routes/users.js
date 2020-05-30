@@ -3,7 +3,12 @@ const { Container } = require("typedi");
 const HttpStatus = require("http-status-codes");
 
 const UsersService = require("../../services/UsersService");
+const joiValidation = require("../middleware/joiValidation");
 const auth = require("../middleware/auth");
+const {
+  updateUserSchema,
+  updatePasswordSchema,
+} = require("../../validators/users");
 
 const route = Router();
 
@@ -34,4 +39,28 @@ module.exports = (app) => {
       return next(e);
     }
   });
+
+  route.patch("/", joiValidation(updateUserSchema), async (req, res, next) => {
+    try {
+      const userService = Container.get(UsersService);
+      const data = await userService.updateUser(req.user, req.body);
+      return res.json(data).status(HttpStatus.OK);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+  route.patch(
+    "/password",
+    joiValidation(updatePasswordSchema),
+    async (req, res, next) => {
+      try {
+        const userService = Container.get(UsersService);
+        const data = await userService.updateUsersPassword(req.user, req.body);
+        return res.json(data).status(HttpStatus.OK);
+      } catch (e) {
+        return next(e);
+      }
+    }
+  );
 };
